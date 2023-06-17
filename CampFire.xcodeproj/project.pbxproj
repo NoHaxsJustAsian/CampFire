@@ -13,9 +13,7 @@
 		F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6E82A3D5BE00040AF69 /* Main.storyboard */; };
 		F29BE6EC2A3D5BE10040AF69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6EB2A3D5BE10040AF69 /* Assets.xcassets */; };
 		F29BE6EF2A3D5BE10040AF69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6ED2A3D5BE10040AF69 /* LaunchScreen.storyboard */; };
-		F29BE6FA2A3D5BE10040AF69 /* CampFireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6F92A3D5BE10040AF69 /* CampFireTests.swift */; };
-		F29BE7042A3D5BE10040AF69 /* CampFireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE7032A3D5BE10040AF69 /* CampFireUITests.swift */; };
-		F29BE7062A3D5BE10040AF69 /* CampFireUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE7052A3D5BE10040AF69 /* CampFireUITestsLaunchTests.swift */; };
+		F29BE7192A3D5CCE0040AF69 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE7182A3D5CCE0040AF69 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,10 +43,8 @@
 		F29BE6EE2A3D5BE10040AF69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F29BE6F02A3D5BE10040AF69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F29BE6F52A3D5BE10040AF69 /* CampFireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F29BE6F92A3D5BE10040AF69 /* CampFireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampFireTests.swift; sourceTree = "<group>"; };
 		F29BE6FF2A3D5BE10040AF69 /* CampFireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F29BE7032A3D5BE10040AF69 /* CampFireUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampFireUITests.swift; sourceTree = "<group>"; };
-		F29BE7052A3D5BE10040AF69 /* CampFireUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampFireUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F29BE7182A3D5CCE0040AF69 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				F29BE6E12A3D5BE00040AF69 /* CampFire */,
-				F29BE6F82A3D5BE10040AF69 /* CampFireTests */,
-				F29BE7022A3D5BE10040AF69 /* CampFireUITests */,
 				F29BE6E02A3D5BE00040AF69 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,9 +93,12 @@
 		F29BE6E12A3D5BE00040AF69 /* CampFire */ = {
 			isa = PBXGroup;
 			children = (
+				F29BE7172A3D5C980040AF69 /* ToDo Screen */,
+				F29BE7152A3D5C870040AF69 /* Calendar Screen */,
+				F29BE7142A3D5C7B0040AF69 /* Register Screen */,
+				F29BE7122A3D5C540040AF69 /* Login Screen */,
 				F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */,
 				F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */,
-				F29BE6E62A3D5BE00040AF69 /* ViewController.swift */,
 				F29BE6E82A3D5BE00040AF69 /* Main.storyboard */,
 				F29BE6EB2A3D5BE10040AF69 /* Assets.xcassets */,
 				F29BE6ED2A3D5BE10040AF69 /* LaunchScreen.storyboard */,
@@ -110,21 +107,34 @@
 			path = CampFire;
 			sourceTree = "<group>";
 		};
-		F29BE6F82A3D5BE10040AF69 /* CampFireTests */ = {
+		F29BE7122A3D5C540040AF69 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
-				F29BE6F92A3D5BE10040AF69 /* CampFireTests.swift */,
+				F29BE6E62A3D5BE00040AF69 /* ViewController.swift */,
+				F29BE7182A3D5CCE0040AF69 /* LoginView.swift */,
 			);
-			path = CampFireTests;
+			path = "Login Screen";
 			sourceTree = "<group>";
 		};
-		F29BE7022A3D5BE10040AF69 /* CampFireUITests */ = {
+		F29BE7142A3D5C7B0040AF69 /* Register Screen */ = {
 			isa = PBXGroup;
 			children = (
-				F29BE7032A3D5BE10040AF69 /* CampFireUITests.swift */,
-				F29BE7052A3D5BE10040AF69 /* CampFireUITestsLaunchTests.swift */,
 			);
-			path = CampFireUITests;
+			path = "Register Screen";
+			sourceTree = "<group>";
+		};
+		F29BE7152A3D5C870040AF69 /* Calendar Screen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Calendar Screen";
+			sourceTree = "<group>";
+		};
+		F29BE7172A3D5C980040AF69 /* ToDo Screen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "ToDo Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +270,7 @@
 			files = (
 				F29BE6E72A3D5BE00040AF69 /* ViewController.swift in Sources */,
 				F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */,
+				F29BE7192A3D5CCE0040AF69 /* LoginView.swift in Sources */,
 				F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,7 +279,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F29BE6FA2A3D5BE10040AF69 /* CampFireTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,8 +286,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F29BE7062A3D5BE10040AF69 /* CampFireUITestsLaunchTests.swift in Sources */,
-				F29BE7042A3D5BE10040AF69 /* CampFireUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
