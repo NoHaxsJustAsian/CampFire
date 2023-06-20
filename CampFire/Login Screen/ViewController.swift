@@ -29,7 +29,7 @@ class ViewController: UIViewController {
             if user == nil{
                 //MARK: not signed in...
                 self.currentUser = nil
-                self.mainScreen.labelText.text = "Please sign in to see the chats!"
+                self.mainScreen.labelText.text = "Please sign in your ToDos!"
 
                 //MARK: Reset tableView...
                 self.usersList.removeAll()
@@ -47,8 +47,6 @@ class ViewController: UIViewController {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
                             self.mainScreen.labelText.text = "Welcome \(user.name)!"
-                            
-                            // Fetch other users now, after currentUser is set
                             self.database.collection("users").getDocuments { (querySnapshot, error) in
                                 if let error = error {
                                     print("Error getting documents: \(error)")
