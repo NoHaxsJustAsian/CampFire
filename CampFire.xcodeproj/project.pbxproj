@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F29020772A42384A0016E0AA /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020732A42384A0016E0AA /* RegisterView.swift */; };
+		F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020742A42384A0016E0AA /* RegisterViewController.swift */; };
+		F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */; };
+		F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */; };
 		F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */; };
 		F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */; };
 		F29BE6E72A3D5BE00040AF69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E62A3D5BE00040AF69 /* ViewController.swift */; };
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F29020732A42384A0016E0AA /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		F29020742A42384A0016E0AA /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
+		F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterProgressIndicatorManager.swift; sourceTree = "<group>"; };
 		F29BE6DF2A3D5BE00040AF69 /* CampFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +127,10 @@
 		F29BE7142A3D5C7B0040AF69 /* Register Screen */ = {
 			isa = PBXGroup;
 			children = (
+				F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */,
+				F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */,
+				F29020742A42384A0016E0AA /* RegisterViewController.swift */,
+				F29020732A42384A0016E0AA /* RegisterView.swift */,
 			);
 			path = "Register Screen";
 			sourceTree = "<group>";
@@ -268,8 +280,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */,
 				F29BE6E72A3D5BE00040AF69 /* ViewController.swift in Sources */,
+				F29020772A42384A0016E0AA /* RegisterView.swift in Sources */,
+				F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */,
 				F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */,
+				F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */,
 				F29BE7192A3D5CCE0040AF69 /* LoginView.swift in Sources */,
 				F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */,
 			);
