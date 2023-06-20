@@ -14,10 +14,10 @@
 		F29020832A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
 		F29020842A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207D2A423D8C0016E0AA /* MainScreenView.swift */; };
 		F29020852A423D8C0016E0AA /* RightBarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */; };
-		F29020862A423D8C0016E0AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207F2A423D8C0016E0AA /* ViewController.swift */; };
 		F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
 		F29020882A423D8C0016E0AA /* ContactsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */; };
 		F29020892A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020822A423D8C0016E0AA /* MainScreenView.swift */; };
+		F290208B2A423E040016E0AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290208A2A423E040016E0AA /* ViewController.swift */; };
 		F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */; };
 		F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */; };
 		F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6E82A3D5BE00040AF69 /* Main.storyboard */; };
@@ -50,10 +50,10 @@
 		F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		F290207D2A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightBarButtonManager.swift; sourceTree = "<group>"; };
-		F290207F2A423D8C0016E0AA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "../../../iOSChat/iOSChat/Main Screen /ViewController.swift"; sourceTree = "<group>"; };
 		F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewManager.swift; sourceTree = "<group>"; };
 		F29020822A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		F290208A2A423E040016E0AA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F29BE6DF2A3D5BE00040AF69 /* CampFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,11 +137,11 @@
 		F29BE7122A3D5C540040AF69 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
+				F290208A2A423E040016E0AA /* ViewController.swift */,
 				F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */,
 				F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */,
 				F29020822A423D8C0016E0AA /* MainScreenView.swift */,
 				F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */,
-				F290207F2A423D8C0016E0AA /* ViewController.swift */,
 				F290207B2A423D8C0016E0AA /* Views */,
 			);
 			path = "Login Screen";
@@ -311,7 +311,7 @@
 				F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */,
 				F29020772A42384A0016E0AA /* RegisterView.swift in Sources */,
 				F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */,
-				F29020862A423D8C0016E0AA /* ViewController.swift in Sources */,
+				F290208B2A423E040016E0AA /* ViewController.swift in Sources */,
 				F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */,
 				F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */,
 				F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */,
