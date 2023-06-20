@@ -11,13 +11,18 @@
 		F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020742A42384A0016E0AA /* RegisterViewController.swift */; };
 		F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */; };
 		F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */; };
+		F29020832A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
+		F29020842A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207D2A423D8C0016E0AA /* MainScreenView.swift */; };
+		F29020852A423D8C0016E0AA /* RightBarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */; };
+		F29020862A423D8C0016E0AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207F2A423D8C0016E0AA /* ViewController.swift */; };
+		F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
+		F29020882A423D8C0016E0AA /* ContactsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */; };
+		F29020892A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020822A423D8C0016E0AA /* MainScreenView.swift */; };
 		F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */; };
 		F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */; };
-		F29BE6E72A3D5BE00040AF69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E62A3D5BE00040AF69 /* ViewController.swift */; };
 		F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6E82A3D5BE00040AF69 /* Main.storyboard */; };
 		F29BE6EC2A3D5BE10040AF69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6EB2A3D5BE10040AF69 /* Assets.xcassets */; };
 		F29BE6EF2A3D5BE10040AF69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6ED2A3D5BE10040AF69 /* LaunchScreen.storyboard */; };
-		F29BE7192A3D5CCE0040AF69 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE7182A3D5CCE0040AF69 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,17 +47,22 @@
 		F29020742A42384A0016E0AA /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
 		F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterProgressIndicatorManager.swift; sourceTree = "<group>"; };
+		F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		F290207D2A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightBarButtonManager.swift; sourceTree = "<group>"; };
+		F290207F2A423D8C0016E0AA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "../../../iOSChat/iOSChat/Main Screen /ViewController.swift"; sourceTree = "<group>"; };
+		F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewManager.swift; sourceTree = "<group>"; };
+		F29020822A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		F29BE6DF2A3D5BE00040AF69 /* CampFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F29BE6E62A3D5BE00040AF69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F29BE6E92A3D5BE00040AF69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F29BE6EB2A3D5BE10040AF69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F29BE6EE2A3D5BE10040AF69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F29BE6F02A3D5BE10040AF69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F29BE6F52A3D5BE10040AF69 /* CampFireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6FF2A3D5BE10040AF69 /* CampFireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F29BE7182A3D5CCE0040AF69 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +90,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F290207B2A423D8C0016E0AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */,
+				F290207D2A423D8C0016E0AA /* MainScreenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F29BE6D62A3D5BE00040AF69 = {
 			isa = PBXGroup;
 			children = (
@@ -118,8 +137,12 @@
 		F29BE7122A3D5C540040AF69 /* Login Screen */ = {
 			isa = PBXGroup;
 			children = (
-				F29BE6E62A3D5BE00040AF69 /* ViewController.swift */,
-				F29BE7182A3D5CCE0040AF69 /* LoginView.swift */,
+				F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */,
+				F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */,
+				F29020822A423D8C0016E0AA /* MainScreenView.swift */,
+				F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */,
+				F290207F2A423D8C0016E0AA /* ViewController.swift */,
+				F290207B2A423D8C0016E0AA /* Views */,
 			);
 			path = "Login Screen";
 			sourceTree = "<group>";
@@ -280,14 +303,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29020882A423D8C0016E0AA /* ContactsTableViewManager.swift in Sources */,
+				F29020892A423D8C0016E0AA /* MainScreenView.swift in Sources */,
 				F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */,
-				F29BE6E72A3D5BE00040AF69 /* ViewController.swift in Sources */,
+				F29020842A423D8C0016E0AA /* MainScreenView.swift in Sources */,
+				F29020832A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */,
+				F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */,
 				F29020772A42384A0016E0AA /* RegisterView.swift in Sources */,
 				F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */,
+				F29020862A423D8C0016E0AA /* ViewController.swift in Sources */,
 				F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */,
 				F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */,
-				F29BE7192A3D5CCE0040AF69 /* LoginView.swift in Sources */,
 				F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */,
+				F29020852A423D8C0016E0AA /* RightBarButtonManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
