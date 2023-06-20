@@ -14,13 +14,16 @@
 		F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020742A42384A0016E0AA /* RegisterViewController.swift */; };
 		F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */; };
 		F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */; };
-		F29020832A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
+		F29020832A423D8C0016E0AA /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207C2A423D8C0016E0AA /* ToDoTableViewCell.swift */; };
 		F29020842A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207D2A423D8C0016E0AA /* MainScreenView.swift */; };
 		F29020852A423D8C0016E0AA /* RightBarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */; };
-		F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */; };
-		F29020882A423D8C0016E0AA /* ContactsTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */; };
-		F29020892A423D8C0016E0AA /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020822A423D8C0016E0AA /* MainScreenView.swift */; };
+		F29020882A423D8C0016E0AA /* ToDoTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020812A423D8C0016E0AA /* ToDoTableViewManager.swift */; };
 		F290208B2A423E040016E0AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290208A2A423E040016E0AA /* ViewController.swift */; };
+		F290208D2A423F0C0016E0AA /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290208C2A423F0C0016E0AA /* CalendarView.swift */; };
+		F290208F2A423F1A0016E0AA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290208E2A423F1A0016E0AA /* CalendarViewController.swift */; };
+		F29020932A4243A90016E0AA /* ProgressSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020912A4243A90016E0AA /* ProgressSpinnerViewController.swift */; };
+		F29020942A4243A90016E0AA /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020922A4243A90016E0AA /* ProgressSpinnerDelegate.swift */; };
+		F29020962A4243C00016E0AA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29020952A4243C00016E0AA /* User.swift */; };
 		F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */; };
 		F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */; };
 		F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6E82A3D5BE00040AF69 /* Main.storyboard */; };
@@ -50,13 +53,16 @@
 		F29020742A42384A0016E0AA /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F29020752A42384A0016E0AA /* RegisterFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterFirebaseManager.swift; sourceTree = "<group>"; };
 		F29020762A42384A0016E0AA /* RegisterProgressIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterProgressIndicatorManager.swift; sourceTree = "<group>"; };
-		F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		F290207C2A423D8C0016E0AA /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		F290207D2A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightBarButtonManager.swift; sourceTree = "<group>"; };
-		F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
-		F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsTableViewManager.swift; sourceTree = "<group>"; };
-		F29020822A423D8C0016E0AA /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		F29020812A423D8C0016E0AA /* ToDoTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoTableViewManager.swift; sourceTree = "<group>"; };
 		F290208A2A423E040016E0AA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F290208C2A423F0C0016E0AA /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		F290208E2A423F1A0016E0AA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		F29020912A4243A90016E0AA /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
+		F29020922A4243A90016E0AA /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
+		F29020952A4243C00016E0AA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F29BE6DF2A3D5BE00040AF69 /* CampFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6E22A3D5BE00040AF69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F29BE6E42A3D5BE00040AF69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,10 +105,19 @@
 		F290207B2A423D8C0016E0AA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F290207C2A423D8C0016E0AA /* ContactsTableViewCell.swift */,
+				F290207C2A423D8C0016E0AA /* ToDoTableViewCell.swift */,
 				F290207D2A423D8C0016E0AA /* MainScreenView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F29020902A4243A90016E0AA /* Progress Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				F29020912A4243A90016E0AA /* ProgressSpinnerViewController.swift */,
+				F29020922A4243A90016E0AA /* ProgressSpinnerDelegate.swift */,
+			);
+			path = "Progress Indicator";
 			sourceTree = "<group>";
 		};
 		F29BE6D62A3D5BE00040AF69 = {
@@ -126,6 +141,8 @@
 		F29BE6E12A3D5BE00040AF69 /* CampFire */ = {
 			isa = PBXGroup;
 			children = (
+				F29020952A4243C00016E0AA /* User.swift */,
+				F29020902A4243A90016E0AA /* Progress Indicator */,
 				F29BE7172A3D5C980040AF69 /* ToDo Screen */,
 				F29BE7152A3D5C870040AF69 /* Calendar Screen */,
 				F29BE7142A3D5C7B0040AF69 /* Register Screen */,
@@ -144,9 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				F290208A2A423E040016E0AA /* ViewController.swift */,
-				F29020802A423D8C0016E0AA /* ContactsTableViewCell.swift */,
-				F29020812A423D8C0016E0AA /* ContactsTableViewManager.swift */,
-				F29020822A423D8C0016E0AA /* MainScreenView.swift */,
+				F29020812A423D8C0016E0AA /* ToDoTableViewManager.swift */,
 				F290207E2A423D8C0016E0AA /* RightBarButtonManager.swift */,
 				F290207B2A423D8C0016E0AA /* Views */,
 			);
@@ -167,6 +182,8 @@
 		F29BE7152A3D5C870040AF69 /* Calendar Screen */ = {
 			isa = PBXGroup;
 			children = (
+				F290208C2A423F0C0016E0AA /* CalendarView.swift */,
+				F290208E2A423F1A0016E0AA /* CalendarViewController.swift */,
 			);
 			path = "Calendar Screen";
 			sourceTree = "<group>";
@@ -317,15 +334,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F29020882A423D8C0016E0AA /* ContactsTableViewManager.swift in Sources */,
-				F29020892A423D8C0016E0AA /* MainScreenView.swift in Sources */,
+				F290208F2A423F1A0016E0AA /* CalendarViewController.swift in Sources */,
+				F29020882A423D8C0016E0AA /* ToDoTableViewManager.swift in Sources */,
 				F29020792A42384A0016E0AA /* RegisterFirebaseManager.swift in Sources */,
 				F29020842A423D8C0016E0AA /* MainScreenView.swift in Sources */,
-				F29020832A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */,
-				F29020872A423D8C0016E0AA /* ContactsTableViewCell.swift in Sources */,
+				F29020962A4243C00016E0AA /* User.swift in Sources */,
+				F29020832A423D8C0016E0AA /* ToDoTableViewCell.swift in Sources */,
+				F29020932A4243A90016E0AA /* ProgressSpinnerViewController.swift in Sources */,
 				F29020772A42384A0016E0AA /* RegisterView.swift in Sources */,
 				F290207A2A42384A0016E0AA /* RegisterProgressIndicatorManager.swift in Sources */,
+				F290208D2A423F0C0016E0AA /* CalendarView.swift in Sources */,
 				F290208B2A423E040016E0AA /* ViewController.swift in Sources */,
+				F29020942A4243A90016E0AA /* ProgressSpinnerDelegate.swift in Sources */,
 				F29BE6E32A3D5BE00040AF69 /* AppDelegate.swift in Sources */,
 				F29020782A42384A0016E0AA /* RegisterViewController.swift in Sources */,
 				F29BE6E52A3D5BE00040AF69 /* SceneDelegate.swift in Sources */,

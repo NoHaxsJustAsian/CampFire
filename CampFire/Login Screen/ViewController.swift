@@ -6,7 +6,7 @@ class ViewController: UIViewController {
 
     let mainScreen = MainScreenView()
 
-    var usersList = [User]()
+    var usersList = [User]() //FIXME: Change this into a list of ToDos
 
     var handleAuth: AuthStateDidChangeListenerHandle?
 

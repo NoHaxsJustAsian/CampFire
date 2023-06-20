@@ -1,15 +1,15 @@
 import UIKit
 
-class ContactsTableViewCell: UITableViewCell {
+class ToDoTableViewCell: UITableViewCell {
     
     var wrapperCellView: UIView!
-    var labelName: UILabel!
+    var labelText: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupWrapperCellView()
-        setupLabelName()
+        setupLabelText()
         initConstraints()
     }
     
@@ -31,11 +31,11 @@ class ContactsTableViewCell: UITableViewCell {
         self.addSubview(wrapperCellView)
     }
     
-    func setupLabelName(){
-        labelName = UILabel()
-        labelName.font = UIFont.boldSystemFont(ofSize: 20)
-        labelName.translatesAutoresizingMaskIntoConstraints = false
-        wrapperCellView.addSubview(labelName)
+    func setupLabelText(){
+        labelText = UILabel()
+        labelText.font = UIFont.boldSystemFont(ofSize: 20)
+        labelText.translatesAutoresizingMaskIntoConstraints = true
+        wrapperCellView.addSubview(labelText)
     }
     
     func initConstraints(){
@@ -45,10 +45,10 @@ class ContactsTableViewCell: UITableViewCell {
             wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
-            labelName.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 8),
-            labelName.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-            labelName.heightAnchor.constraint(equalToConstant: 20),
-            labelName.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
+            labelText.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 8),
+            labelText.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
+            labelText.heightAnchor.constraint(equalToConstant: 20),
+            labelText.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
             
             wrapperCellView.heightAnchor.constraint(equalToConstant: 30)
         ])
@@ -61,8 +61,9 @@ class ContactsTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
+        
+        //FIXME: we prolly want to make this pull up the keyboard and make the LabelText able to be edited.
     }
 
 }
