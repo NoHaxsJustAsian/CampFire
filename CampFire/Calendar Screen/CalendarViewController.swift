@@ -9,6 +9,12 @@ import UIKit
 
 class CalendarViewController: UIViewController {
 
+    let calendarView = CalendarView()
+    
+    override func loadView() {
+        view = calendarView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,3 +33,5 @@ class CalendarViewController: UIViewController {
     */
 
 }
+
+
