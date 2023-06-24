@@ -51,6 +51,7 @@ class ViewController: UIViewController {
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
+                                    self.navigationItem.titleView = self.mainScreen.titleView
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
@@ -86,9 +87,10 @@ class ViewController: UIViewController {
         
         //MARK: removing the separator line...
         mainScreen.tableViewToDo.separatorStyle = .none
-        
         //MARK: Make the titles look large...
         navigationController?.navigationBar.prefersLargeTitles = true
+        self.mainScreen.leftArrowButton.addTarget(self, action: #selector(self.leftArrowButtonTapped), for: .touchUpInside)
+        self.mainScreen.rightArrowButton.addTarget(self, action: #selector(self.rightArrowButtonTapped), for: .touchUpInside)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,5 +128,14 @@ class ViewController: UIViewController {
         }
         fetchedTasks.sort { $1.finished && !$0.finished }
         return fetchedTasks
+    }
+    
+    
+    @objc func leftArrowButtonTapped() {
+        //FIXME: make days shift left and the correct list is being chosen and update the title
+    }
+
+    @objc func rightArrowButtonTapped() {
+        //FIXME: make days shift right and the correct list is being chosen and update the title
     }
 }
