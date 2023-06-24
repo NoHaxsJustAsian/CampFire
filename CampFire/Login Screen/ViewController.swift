@@ -49,17 +49,6 @@ class ViewController: UIViewController {
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
-                                    var userIds: [User] = []
-                                    for document in querySnapshot!.documents {
-                                        do {
-                                            if (document.documentID != self.currentUser?.id) {
-                                                let user = try document.data(as: User.self)
-                                                userIds.append(user)
-                                            }
-                                        } catch {
-                                            print("Error decoding user data: \(error)")
-                                        }
-                                    }
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
@@ -108,7 +97,4 @@ navigationController?.navigationBar.prefersLargeTitles = true
         Auth.auth().signIn(withEmail: email, password: password)
     }
 
-    func openChat(user: User){
-        //FIXME: fix this so it allows user to edit
-    }
 }
