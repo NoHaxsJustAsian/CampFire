@@ -13,6 +13,7 @@ class SettingsView: UIView {
     var stackView: UIStackView!
     var notificationSwitch: UISwitch!
     var notificationTime: UIDatePicker!
+    var testNotificationButton: UIButton!
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -44,6 +45,13 @@ class SettingsView: UIView {
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(stackView)
+        
+        testNotificationButton = UIButton(type: .system)
+        testNotificationButton.setTitle("Test Notification", for: .normal)
+
+        testNotificationButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(testNotificationButton)
+                
     }
     
     
@@ -53,6 +61,7 @@ class SettingsView: UIView {
                 stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
                 stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                 stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+                testNotificationButton.topAnchor.constraint(equalTo: stackView.bottomAnchor)
             ])
     }
     
