@@ -29,6 +29,7 @@
 		F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6E82A3D5BE00040AF69 /* Main.storyboard */; };
 		F29BE6EC2A3D5BE10040AF69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6EB2A3D5BE10040AF69 /* Assets.xcassets */; };
 		F29BE6EF2A3D5BE10040AF69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F29BE6ED2A3D5BE10040AF69 /* LaunchScreen.storyboard */; };
+		F2F15BCA2A46829500B30BE7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2F15BC92A46829500B30BE7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		F29BE6F02A3D5BE10040AF69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F29BE6F52A3D5BE10040AF69 /* CampFireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29BE6FF2A3D5BE10040AF69 /* CampFireUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CampFireUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2F15BC92A46829500B30BE7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		F29BE6E12A3D5BE00040AF69 /* CampFire */ = {
 			isa = PBXGroup;
 			children = (
+				F2F15BC92A46829500B30BE7 /* GoogleService-Info.plist */,
 				F29020952A4243C00016E0AA /* Model.swift */,
 				F29020902A4243A90016E0AA /* Progress Indicator */,
 				F29BE7172A3D5C980040AF69 /* ToDo Screen */,
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F29BE6EF2A3D5BE10040AF69 /* LaunchScreen.storyboard in Resources */,
+				F2F15BCA2A46829500B30BE7 /* GoogleService-Info.plist in Resources */,
 				F29BE6EC2A3D5BE10040AF69 /* Assets.xcassets in Resources */,
 				F29BE6EA2A3D5BE00040AF69 /* Main.storyboard in Resources */,
 			);
