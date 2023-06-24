@@ -29,6 +29,7 @@ class RegisterViewController: UIViewController {
     
     @objc func onRegisterTapped(){
         //MARK: creating a new user on Firebase...
+        //TODO: manually add all days of the week into lists.
         registerNewAccount { user, error in
             if let error = error {
                 print("Error: \(error)")

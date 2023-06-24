@@ -5,11 +5,10 @@ import FirebaseFirestore
 class ViewController: UIViewController {
 
     let mainScreen = MainScreenView()
-
-    var listsList = [List]()
     var handleAuth: AuthStateDidChangeListenerHandle?
     
-    var selectedList: List?
+    var listsList = [List]()
+    var selectedList: List! //day of the week
     var currentUser: User?
 
     let database = Firestore.firestore()
