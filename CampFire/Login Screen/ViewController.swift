@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
                 //MARK: Reset tableView...
                 self.usersList.removeAll()
-                self.mainScreen.tableViewContacts.reloadData()
+                self.mainScreen.tableViewToDo.reloadData()
 
                 //MARK: Sign in bar button...
                 self.setupRightBarButton(isLoggedin: false)
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
                         do {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
-                            self.mainScreen.labelText.text = "Welcome \(user.name)!"
+                            self.mainScreen.labelText.text = "Welcome \(user.username)!"
                             self.database.collection("users").getDocuments { (querySnapshot, error) in
                                 if let error = error {
                                     print("Error getting documents: \(error)")
@@ -62,10 +62,10 @@ class ViewController: UIViewController {
                                             print("Error decoding user data: \(error)")
                                         }
                                     }
-                                    self.usersList = userIds.sorted { $0.name < $1.name }
+                                    self.usersList = userIds.sorted { $0.username < $1.username }
                                     print("userlist: ", self.usersList)
                                     print("end")
-                                    self.mainScreen.tableViewContacts.reloadData()
+                                    self.mainScreen.tableViewToDo.reloadData()
                                 }
                             }
 
@@ -87,14 +87,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "My Contacts"
+        title = "To Do"
 
         //MARK: patching table view delegate and data source...
-        mainScreen.tableViewContacts.delegate = self
-        mainScreen.tableViewContacts.dataSource = self
+        mainScreen.tableViewToDo.delegate = self
+        mainScreen.tableViewToDo.dataSource = self
 
         //MARK: removing the separator line...
-        mainScreen.tableViewContacts.separatorStyle = .none
+        mainScreen.tableViewToDo.separatorStyle = .none
 
         //MARK: Make the titles look large...
 navigationController?.navigationBar.prefersLargeTitles = true
@@ -110,9 +110,6 @@ navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     func openChat(user: User){
-        let viewChatViewController = ViewChatViewController()
-        viewChatViewController.userSelf = self.currentUser
-        viewChatViewController.userOther = user
-        navigationController?.pushViewController(viewChatViewController, animated: true)
+        //FIXME: fix this so it allows user to edit
     }
 }

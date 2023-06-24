@@ -8,7 +8,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "users", for: indexPath) as! ToDoTableViewCell
-        cell.labelText.text = usersList[indexPath.row].name //FIXME: we need to change this into a list of ToDo Tasks.
+        cell.labelText.text = usersList[indexPath.row].username //FIXME: we need to change this into a list of ToDo Tasks.
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
