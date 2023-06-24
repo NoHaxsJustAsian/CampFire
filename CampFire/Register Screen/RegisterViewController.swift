@@ -37,7 +37,27 @@ class RegisterViewController: UIViewController {
                 let name = self.registerView.textFieldName.text
                 self.database.collection("users").document(user.uid).setData([
                     "username": name
-                ]) { err in
+                ])
+                let defaultTask = Task()
+                let defaultTaskData: [String: Any] = [
+                    "finished": defaultTask.finished,
+                    "name": defaultTask.name
+                ]
+                self.database.collection("users").document(user.uid).collection("lists").document("sunday").setData(["name": "Sunday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("sunday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("monday").setData(["name": "Monday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("monday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("tuesday").setData(["name": "Tuesday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("tuesday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("wednesday").setData(["name": "Wednesday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("wednesday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("thursday").setData(["name": "Thursday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("thursday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("friday").setData(["name": "Friday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("friday").collection("tasks").addDocument(data: defaultTaskData)
+                self.database.collection("users").document(user.uid).collection("lists").document("saturday").setData(["name": "Saturday"])
+                self.database.collection("users").document(user.uid).collection("lists").document("saturday").collection("tasks").addDocument(data: defaultTaskData)
+                { err in
                     if let err = err {
                         print("Error adding document: \(err)")
                     } else {

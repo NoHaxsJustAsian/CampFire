@@ -62,7 +62,7 @@ struct Task: Codable, Identifiable {
     init() {
         self.id = nil
         self.finished = false
-        self.name = ""
+        self.name = "Tap to edit"
     }
     
     init(id: String?, finished: Bool, name: String) {
