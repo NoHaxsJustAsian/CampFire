@@ -35,7 +35,7 @@ class RegisterViewController: UIViewController {
             } else if let user = user {
                 let name = self.registerView.textFieldName.text
                 self.database.collection("users").document(user.uid).setData([
-                    "name": name
+                    "username": name
                 ]) { err in
                     if let err = err {
                         print("Error adding document: \(err)")

@@ -62,7 +62,7 @@ class ViewController: UIViewController {
                                             print("Error decoding user data: \(error)")
                                         }
                                     }
-                                    self.usersList = userIds.sorted { $0.username < $1.username }
+                                    self.usersList = userIds.sorted { $0.username < $1.username } //FIXME: needs to be list of to do from user.
                                     print("userlist: ", self.usersList)
                                     print("end")
                                     self.mainScreen.tableViewToDo.reloadData()
