@@ -49,7 +49,7 @@ class ViewController: UIViewController {
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
-                                    self.fetchLists(fetchUser: user)
+//                                    self.fetchLists(fetchUser: user)
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
@@ -99,15 +99,17 @@ class ViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password)
     }
     
-    func fetchLists(fetchUser:User){
-        self.database.collection("users").document(fetchUser.id!).collection("lists").getDocuments { (querySnapshot, error) in
+    func fetchTasks(_ fetchUser:User, _ day:String) -> [Task]{
+        var fetchedTasks = [Task]()
+        self.database.collection("users").document(fetchUser.id!).collection("lists").document(day).collection("tasks").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
             } else {
                 for document in querySnapshot!.documents {
                     do {
-                        let day = try document.data(as: List.self)
-                        self.listMap[day.name] = day
+                        let data = try JSONSerialization.data(withJSONObject: document, options: [])
+                        let task = try JSONDecoder().decode(Task.self, from: data)
+                        fetchedTasks.append(task)
                     } catch {
                         print("Error decoding user data: \(error)")
                     }
@@ -115,23 +117,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func fetchTasks(fetchUser:User){
-        self.database.collection("users").document(fetchUser.id!).collection("lists").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in querySnapshot!.documents {
-                    do {
-                        let day = try document.data(as: List.self)
-                        self.listMap[day.name] = day
-                    } catch {
-                        print("Error decoding user data: \(error)")
-                    }
-                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
-                }
-            }
-        }
+        fetchedTasks.sort { $1.finished && !$0.finished }
+        return fetchedTasks
     }
 }
