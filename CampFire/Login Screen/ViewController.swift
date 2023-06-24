@@ -7,7 +7,7 @@ class ViewController: UIViewController {
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
     
-    var listsList = [List]()
+    var listMap = [String:List]()
     var selectedList: List! //day of the week
     var currentUser: User?
 
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
                 self.mainScreen.labelText.text = "Please sign in your To Dos!"
 
                 //MARK: Reset tableView...
-                self.listsList.removeAll()
+                self.listMap = [:]
                 self.mainScreen.tableViewToDo.reloadData()
 
                 //MARK: Sign in bar button...
@@ -45,14 +45,24 @@ class ViewController: UIViewController {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
                             self.mainScreen.labelText.text = "Welcome \(user.username)!"
-                            self.database.collection("users").getDocuments { (querySnapshot, error) in
+                            self.database.collection("users").document(self.currentUser.id).collection("lists").getDocuments { (querySnapshot, error) in
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
+                                    for document in querySnapshot!.documents {
+                                        do {
+                                            let day = try document.data(as: List.self)
+                                            listMap(day.name) = day
+                                        } catch {
+                                            print("Error decoding user data: \(error)")
+                                        }
+                                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
-                                    self.selectedList = self.listsList[dayOfWeek]
+                                    let dateFormatter = DateFormatter()
+                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek - 1]
+                                    self.selectedList = self.listMap[dayOfWeekString]
                                     self.mainScreen.tableViewToDo.reloadData()
                                 }
                             }

@@ -3,24 +3,15 @@ import FirebaseFirestoreSwift
 struct User: Codable, Identifiable {
     @DocumentID var id: String?
     var username: String
-    var lists: [List]
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case username
-        case lists
-    }
     
     init() {
         self.id = nil
         self.username = ""
-        self.lists = []
     }
     
-    init(id: String?, username: String, lists: [List]) {
+    init(id: String?, username: String) {
         self.id = id
         self.username = username
-        self.lists = lists
     }
 }
 
@@ -28,13 +19,7 @@ struct List: Codable, Identifiable {
     @DocumentID var id: String?
     var name: String
     var tasks: [Task]
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case tasks
-    }
-    
+
     init() {
         self.id = nil
         self.name = ""
