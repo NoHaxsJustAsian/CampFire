@@ -11,14 +11,7 @@ extension ViewController{
                 target: self,
                 action: #selector(onLogOutBarButtonTapped)
             )
-            let barText = UIBarButtonItem(
-                title: "Logout",
-                style: .plain,
-                target: self,
-                action: #selector(onLogOutBarButtonTapped)
-            )
-            
-            navigationItem.rightBarButtonItems = [barIcon, barText]
+            navigationItem.rightBarButtonItems = [barIcon]
             
         }else{
             //MARK: not logged in...
@@ -28,14 +21,7 @@ extension ViewController{
                 target: self,
                 action: #selector(onSignInBarButtonTapped)
             )
-            let barText = UIBarButtonItem(
-                title: "Sign in",
-                style: .plain,
-                target: self,
-                action: #selector(onSignInBarButtonTapped)
-            )
-            
-            navigationItem.rightBarButtonItems = [barIcon, barText]
+            navigationItem.rightBarButtonItems = [barIcon]
         }
     }
     
