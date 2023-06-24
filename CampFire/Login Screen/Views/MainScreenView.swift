@@ -5,6 +5,7 @@ class MainScreenView: UIView {
     var tableViewToDo: UITableView!
     var leftArrowButton: UIButton!
     var rightArrowButton: UIButton!
+    var addTaskButton: UIButton!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -12,6 +13,7 @@ class MainScreenView: UIView {
         setupTableViewToDo()
         setupLeftArrowButton()
         setupRightArrowButton()
+        setupAddTaskButton()
         initConstraints()
     }
     
@@ -47,6 +49,13 @@ class MainScreenView: UIView {
         titleView.addSubview(rightArrowButton)
     }
     
+    func setupAddTaskButton(){
+        addTaskButton = UIButton(type: .system)
+        addTaskButton.setTitle("Add Task", for: .normal)
+        addTaskButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(addTaskButton)
+    }
+    
     
     
     //MARK: setting up constraints...
@@ -60,6 +69,9 @@ class MainScreenView: UIView {
             tableViewToDo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewToDo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewToDo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            addTaskButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addTaskButton.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }
     
