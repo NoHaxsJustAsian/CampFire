@@ -7,6 +7,8 @@ class ViewController: UIViewController {
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
     
+    var daysOfWeek = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+    
     var listMap = [String:List]()
     var selectedList: List! //day of the week
     var currentUser: User?
@@ -49,12 +51,11 @@ class ViewController: UIViewController {
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
-//                                    self.fetchLists(fetchUser: user)
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
                                     let dateFormatter = DateFormatter()
-                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek]
+                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
                                     self.selectedList = self.listMap[dayOfWeekString]
                                     self.mainScreen.tableViewToDo.reloadData()
                                 }
@@ -97,6 +98,12 @@ class ViewController: UIViewController {
     
     func signIn(email: String, password: String){
         Auth.auth().signIn(withEmail: email, password: password)
+    }
+    
+    func fetchLists(fetchUser:User){
+        for day in daysOfWeek {
+            listMap[day] = List(id:day,name: day.capitalized,tasks:fetchTasks(fetchUser, day))
+        }
     }
     
     func fetchTasks(_ fetchUser:User, _ day:String) -> [Task]{

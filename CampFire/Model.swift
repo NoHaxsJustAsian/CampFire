@@ -26,7 +26,7 @@ struct List: Codable, Identifiable {
         self.tasks = []
     }
     
-    init(id: String?, color: Int, name: String, tasks: [Task]) {
+    init(id: String?, name: String, tasks: [Task]) {
         self.id = id
         self.name = name
         self.tasks = tasks

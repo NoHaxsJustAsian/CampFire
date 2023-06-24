@@ -21,7 +21,7 @@ class MainScreenView: UIView {
     
     func setupTableViewToDo(){
         tableViewToDo = UITableView()
-        tableViewToDo.register(ToDoTableViewCell.self, forCellReuseIdentifier: "users")
+        tableViewToDo.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
         tableViewToDo.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(tableViewToDo)
     }

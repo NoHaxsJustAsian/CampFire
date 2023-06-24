@@ -11,6 +11,14 @@ extension ViewController{
                 target: self,
                 action: #selector(onLogOutBarButtonTapped)
             )
+            let settingIcon = UIBarButtonItem(
+                image: UIImage(systemName: "gearshape"),
+                style: .plain,
+                target: self,
+                action: #selector(onSettingBarButtonTapped)
+            )
+            
+            navigationItem.leftBarButtonItem = settingIcon
             navigationItem.rightBarButtonItems = [barIcon]
             
         }else{
@@ -23,6 +31,11 @@ extension ViewController{
             )
             navigationItem.rightBarButtonItems = [barIcon]
         }
+    }
+    
+    @objc func onSettingBarButtonTapped(){
+        let settingsViewController = SettingsViewController()
+        self.navigationController?.pushViewController(settingsViewController,animated: true)
     }
     
     @objc func onSignInBarButtonTapped(){
