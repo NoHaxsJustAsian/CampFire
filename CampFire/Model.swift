@@ -38,12 +38,6 @@ struct Task: Codable, Identifiable {
     var finished: Bool
     var name: String
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case finished
-        case name
-    }
-    
     init() {
         self.id = nil
         self.finished = false

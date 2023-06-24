@@ -3,7 +3,7 @@ import UIKit
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if currentUser != nil {
+        if selectedList != nil {
             return selectedList.tasks.count 
         }
         return 0

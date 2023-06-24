@@ -3,22 +3,22 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class ViewController: UIViewController {
-
+    
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
     
     var listMap = [String:List]()
     var selectedList: List! //day of the week
     var currentUser: User?
-
+    
     let database = Firestore.firestore()
-
+    
     let childProgressView = ProgressSpinnerViewController()
-
+    
     override func loadView() {
         view = mainScreen
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
@@ -28,14 +28,14 @@ class ViewController: UIViewController {
                 //MARK: not signed in...
                 self.currentUser = nil
                 self.mainScreen.labelText.text = "Please sign in your To Dos!"
-
+                
                 //MARK: Reset tableView...
                 self.listMap = [:]
                 self.mainScreen.tableViewToDo.reloadData()
-
+                
                 //MARK: Sign in bar button...
                 self.setupRightBarButton(isLoggedin: false)
-
+                
             }else{
                 //MARK: the user is signed in...
                 let userData = self.database.collection("users").document(user!.uid)
@@ -45,28 +45,20 @@ class ViewController: UIViewController {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
                             self.mainScreen.labelText.text = "Welcome \(user.username)!"
-                            self.database.collection("users").document(self.currentUser.id).collection("lists").getDocuments { (querySnapshot, error) in
+                            self.database.collection("users").getDocuments { (document, error) in
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
-                                    for document in querySnapshot!.documents {
-                                        do {
-                                            let day = try document.data(as: List.self)
-                                            listMap(day.name) = day
-                                        } catch {
-                                            print("Error decoding user data: \(error)")
-                                        }
-                                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
+                                    self.fetchLists(fetchUser: user)
                                     let date = Date()
                                     let calendar = Calendar.current
                                     let dayOfWeek = calendar.component(.weekday, from: date) - 1
                                     let dateFormatter = DateFormatter()
-                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek - 1]
+                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek]
                                     self.selectedList = self.listMap[dayOfWeekString]
                                     self.mainScreen.tableViewToDo.reloadData()
                                 }
                             }
-
                         } catch {
                             print("Error decoding user data: \(error)")
                         }
@@ -74,37 +66,72 @@ class ViewController: UIViewController {
                         print("User document does not exist")
                     }
                 }
-
+                
                 //MARK: Logout bar button...
                 self.setupRightBarButton(isLoggedin: true)
             }
         }
     }
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "To Do"
-
+        
         //MARK: patching table view delegate and data source...
         mainScreen.tableViewToDo.delegate = self
         mainScreen.tableViewToDo.dataSource = self
-
+        
         //MARK: removing the separator line...
         mainScreen.tableViewToDo.separatorStyle = .none
-
+        
         //MARK: Make the titles look large...
-navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handleAuth!)
     }
-
+    
     func signIn(email: String, password: String){
         Auth.auth().signIn(withEmail: email, password: password)
     }
-
+    
+    func fetchLists(fetchUser:User){
+        self.database.collection("users").document(fetchUser.id!).collection("lists").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let day = try document.data(as: List.self)
+                        self.listMap[day.name] = day
+                    } catch {
+                        print("Error decoding user data: \(error)")
+                    }
+                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
+                }
+            }
+        }
+    }
+    
+    func fetchTasks(fetchUser:User){
+        self.database.collection("users").document(fetchUser.id!).collection("lists").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let day = try document.data(as: List.self)
+                        self.listMap[day.name] = day
+                    } catch {
+                        print("Error decoding user data: \(error)")
+                    }
+                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
+                }
+            }
+        }
+    }
 }
