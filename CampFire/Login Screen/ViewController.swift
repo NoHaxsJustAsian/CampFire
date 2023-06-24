@@ -6,10 +6,10 @@ class ViewController: UIViewController {
 
     let mainScreen = MainScreenView()
 
-    var usersList = [User]() //FIXME: Change this into a list of ToDos
-
+    var listsList = [List]()
     var handleAuth: AuthStateDidChangeListenerHandle?
-
+    
+    var selectedList: List?
     var currentUser: User?
 
     let database = Firestore.firestore()
@@ -22,17 +22,16 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             print("auth user: ", user?.uid)
             if user == nil{
                 //MARK: not signed in...
                 self.currentUser = nil
-                self.mainScreen.labelText.text = "Please sign in your ToDos!"
+                self.mainScreen.labelText.text = "Please sign in your To Dos!"
 
                 //MARK: Reset tableView...
-                self.usersList.removeAll()
+                self.listsList.removeAll()
                 self.mainScreen.tableViewToDo.reloadData()
 
                 //MARK: Sign in bar button...
@@ -62,9 +61,10 @@ class ViewController: UIViewController {
                                             print("Error decoding user data: \(error)")
                                         }
                                     }
-                                    self.usersList = userIds.sorted { $0.username < $1.username } //FIXME: needs to be list of to do from user.
-                                    print("userlist: ", self.usersList)
-                                    print("end")
+                                    let date = Date()
+                                    let calendar = Calendar.current
+                                    let dayOfWeek = calendar.component(.weekday, from: date) - 1
+                                    self.selectedList = self.listsList[dayOfWeek]
                                     self.mainScreen.tableViewToDo.reloadData()
                                 }
                             }

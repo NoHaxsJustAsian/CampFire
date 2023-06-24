@@ -57,14 +57,12 @@ struct Task: Codable, Identifiable {
     var description: String
     var finished: Bool
     var name: String
-    var priority: Int
     
     enum CodingKeys: String, CodingKey {
         case id
         case description
         case finished
         case name
-        case priority
     }
     
     init() {
@@ -72,14 +70,12 @@ struct Task: Codable, Identifiable {
         self.description = ""
         self.finished = false
         self.name = ""
-        self.priority = 0
     }
     
-    init(id: String?, description: String, finished: Bool, name: String, priority: Int) {
+    init(id: String?, description: String, finished: Bool, name: String) {
         self.id = id
         self.description = description
         self.finished = finished
         self.name = name
-        self.priority = priority
     }
 }

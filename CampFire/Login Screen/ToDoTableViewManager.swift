@@ -3,12 +3,15 @@ import UIKit
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersList.count
+        return listsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "users", for: indexPath) as! ToDoTableViewCell
-        cell.labelText.text = usersList[indexPath.row].username //FIXME: we need to change this into a list of ToDo Tasks.
+        cell.labelText.text = selectedList[indexPath.row].Task
+        let _switch = UISwitch()
+        if listsList[indexPath.row].complete
+        cell.accessoryView = _switch
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
