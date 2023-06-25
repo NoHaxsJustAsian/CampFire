@@ -46,12 +46,8 @@ class ViewController: UIViewController {
                         do {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
-                            self.fetchLists(fetchUser: user)
                             self.mainScreen.labelText.text = "Welcome \(user.username)!"
-                            self.database.collection("users").getDocuments { (document, error) in
-                                if let error = error {
-                                    print("Error getting documents: \(error)")
-                                } else {
+                            self.fetchLists(fetchUser: user)
                                     self.navigationItem.titleView = self.mainScreen.titleView
                                     let date = Date()
                                     let calendar = Calendar.current
@@ -60,8 +56,6 @@ class ViewController: UIViewController {
                                     let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
                                     self.selectedList = self.listMap[dayOfWeekString]
                                     self.mainScreen.tableViewToDo.reloadData()
-                                }
-                            }
                         } catch {
                             print("Error decoding user data: \(error)")
                         }
