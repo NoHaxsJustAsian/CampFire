@@ -47,6 +47,7 @@ class SettingsView: UIView {
         self.addSubview(stackView)
         
         testNotificationButton = UIButton(type: .system)
+        testNotificationButton.configuration = .filled()
         testNotificationButton.setTitle("Test Notification", for: .normal)
 
         testNotificationButton.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +62,9 @@ class SettingsView: UIView {
                 stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
                 stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                 stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-                testNotificationButton.topAnchor.constraint(equalTo: stackView.bottomAnchor)
+                testNotificationButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+                testNotificationButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+                testNotificationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             ])
     }
     
