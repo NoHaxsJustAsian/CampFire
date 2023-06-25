@@ -105,12 +105,21 @@ class ViewController: UIViewController {
     }
     
     func fetchLists(fetchUser:User){
+        let dispatchGroup = DispatchGroup()
         for day in daysOfWeek {
-            self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchTasks(fetchUser, day))
+            dispatchGroup.enter()
+            fetchTasks(fetchUser, day) { (fetchedTasks) in
+                self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchedTasks)
+                dispatchGroup.leave()
+            }
+        }
+        dispatchGroup.notify(queue: .main) {
+            // This code will be executed after all tasks are fetched
+            self.mainScreen.tableViewToDo.reloadData()
         }
     }
     
-    func fetchTasks(_ fetchUser:User, _ day:String) -> [Task]{
+    func fetchTasks(_ fetchUser:User, _ day:String, completion: @escaping ([Task]) -> Void) {
         var fetchedTasks = [Task]()
         self.database.collection("users").document(fetchUser.id!).collection("lists").document(day).collection("tasks").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -119,20 +128,16 @@ class ViewController: UIViewController {
                 for document in querySnapshot!.documents {
                     do {
                         let task = try document.data(as: Task.self)
-                        print(task)
                         fetchedTasks.append(task)
                     } catch {
                         print("Error decoding user data: \(error)")
                     }
-                    //self.database.collection("users").document(user!.uid).collection("lists").document(day)
                 }
+                fetchedTasks.sort { $1.finished && !$0.finished }
+                completion(fetchedTasks)
             }
         }
-        fetchedTasks.sort { $1.finished && !$0.finished }
-        print(fetchedTasks)
-        return fetchedTasks
     }
-    
     
     @objc func leftArrowButtonTapped() {
         //FIXME: make days shift left and the correct list is being chosen and update the title
