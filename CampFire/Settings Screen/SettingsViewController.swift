@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController {
     var hour:Int?
     var minute:Int?
     var notificationSwitchOn:Bool?
+    var biometricSwitchOn:Bool?
     let defaults = UserDefaults.standard
     
     override func loadView() {
@@ -69,13 +70,18 @@ class SettingsViewController: UIViewController {
             notificationSwitchOn = defaults.object(forKey: "notificationSwitch") as? Bool
             settingsView.notificationSwitch.isOn = defaults.object(forKey: "notificationSwitch") as! Bool
         }
+        
+        if (defaults.object(forKey: "biometricSwitch") != nil) {
+            biometricSwitchOn = defaults.object(forKey: "biometricSwitch") as? Bool
+            settingsView.biometricSwitch.isOn = defaults.object(forKey: "biometricSwitch") as! Bool
+        }
 
 
     }
     
     func dispatchNotification() {
         let identifier = "reflectionTime"
-        let title = "Reflection Time!"
+        let title = "CampFire"
         let hour = hour
         let minute = minute
         let body = "Time for your daily reflection!"
@@ -130,21 +136,43 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    @objc func biometricSwitchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            defaults.set(true, forKey: "biometricSwitch")
+        } else {
+            defaults.set(false, forKey: "biometricSwitch")
+        }
+    }
+    
+    func showAlert(title:String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+        }
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     @objc func sendTestNotification() {
         let content = UNMutableNotificationContent()
-        content.title = "Reflection Time!"
+        content.title = "CampFire"
         content.body = "Test notification for your daily reflection!"
         content.sound = UNNotificationSound.default
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "testNotification", content: content, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request) { (error) in
-            if let error = error {
-                print("Error sending test notification: \(error.localizedDescription)")
-            } else {
-                print("Test notification sent successfully.") //change this to system notification.
+        if notificationSwitchOn! {
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    print("Error sending test notification: \(error.localizedDescription)")
+                    self.showAlert(title:"Error!", message:"Notifications are off in settings!")
+                } else {
+                    print("Test notification sent successfully.") //change this to system notification.
+                }
             }
+        }
+        else {
+            showAlert(title:"Error!", message:"Notification switch is off!")
         }
     }
 }
