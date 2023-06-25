@@ -53,13 +53,6 @@ class ViewController: UIViewController {
                                     print("Error getting documents: \(error)")
                                 } else {
                                     self.navigationItem.titleView = self.mainScreen.titleView
-                                    let date = Date()
-                                    let calendar = Calendar.current
-                                    let dayOfWeek = calendar.component(.weekday, from: date) - 1
-                                    let dateFormatter = DateFormatter()
-                                    let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
-                                    self.selectedList = self.listMap[dayOfWeekString]
-                                    self.mainScreen.tableViewToDo.reloadData()
                                 }
                             }
                         } catch {
@@ -105,19 +98,25 @@ class ViewController: UIViewController {
     }
     
     func fetchLists(fetchUser:User){
-        let dispatchGroup = DispatchGroup()
-        for day in daysOfWeek {
-            dispatchGroup.enter()
-            fetchTasks(fetchUser, day) { (fetchedTasks) in
-                self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchedTasks)
-                dispatchGroup.leave()
+            let dispatchGroup = DispatchGroup()
+            for day in daysOfWeek {
+                dispatchGroup.enter()
+                fetchTasks(fetchUser, day) { (fetchedTasks) in
+                    self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchedTasks)
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                // This code will be executed after all tasks are fetched
+                let date = Date()
+                let calendar = Calendar.current
+                let dayOfWeek = calendar.component(.weekday, from: date) - 1
+                let dateFormatter = DateFormatter()
+                let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
+                self.selectedList = self.listMap[dayOfWeekString]
+                self.mainScreen.tableViewToDo.reloadData()
             }
         }
-        dispatchGroup.notify(queue: .main) {
-            // This code will be executed after all tasks are fetched
-            self.mainScreen.tableViewToDo.reloadData()
-        }
-    }
     
     func fetchTasks(_ fetchUser:User, _ day:String, completion: @escaping ([Task]) -> Void) {
         var fetchedTasks = [Task]()
