@@ -199,30 +199,19 @@ class ViewController: UIViewController {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        let info:NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-
-        let keyboardHeight: CGFloat = keyboardSize.height
-
-        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
-
-
-        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut, animations: {
-            self.frameView.frame = CGRect(x: 0, y: (self.frameView.frame.origin.y - keyboardHeight), width: self.view.bounds.width, height: self.view.bounds.height)
-        }, completion: nil)
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                return
+            }
+            
+        let keyboardHeight = keyboardFrame.size.height
+        
+        // Adjust the frame of your content view to push it up
+        mainScreen.frame.origin.y = -keyboardHeight
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        let info: NSDictionary = notification.userInfo! as NSDictionary
-        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-
-        let keyboardHeight: CGFloat = keyboardSize.height
-
-        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
-
-        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut, animations: {
-            self.frameView.frame = CGRect(x: 0, y: (self.frameView.frame.origin.y + keyboardHeight), width: self.view.bounds.width, height: self.view.bounds.height)
-        }, completion: nil)
+        // Reset the frame of your content view when the keyboard is hidden
+        mainScreen.frame.origin.y = 0
 
     }
     
