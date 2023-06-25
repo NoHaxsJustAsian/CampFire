@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
@@ -27,23 +27,31 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //MARK: handling if the Authentication state is changed (sign in, sign out, register)...
         handleAuth = Auth.auth().addStateDidChangeListener{ auth, user in
             print("auth user: ", user?.uid)
             if user == nil{
-                //MARK: not signed in...
+                // Not signed in...
                 self.currentUser = nil
                 self.mainScreen.labelText.text = "Please sign in your To Dos!"
-                
-                //MARK: Reset tableView...
+                // Hide the addTaskButton and addTaskTextField...
+                self.mainScreen.addTaskButton.isHidden = true
+                self.mainScreen.addTaskTextField.isHidden = true
+                // Hide the entire tableView...
+                self.mainScreen.tableViewToDo.isHidden = true
+                // Reset tableView...
                 self.listMap = [:]
                 self.mainScreen.tableViewToDo.reloadData()
-                
-                //MARK: Sign in bar button...
+                // Sign in bar button...
                 self.setupRightBarButton(isLoggedin: false)
                 
             }else{
-                //MARK: the user is signed in...
+                // The user is signed in...
+                // Show the addTaskButton and addTaskTextField...
+                self.mainScreen.addTaskButton.isHidden = false
+                self.mainScreen.addTaskTextField.isHidden = false
+                // Show the entire tableView...
+                self.mainScreen.tableViewToDo.isHidden = false
+                
                 let userData = self.database.collection("users").document(user!.uid)
                 userData.getDocument { (document, error) in
                     if let document = document, document.exists {
@@ -79,6 +87,9 @@ class ViewController: UIViewController {
         
         title = "To Do"
         
+        mainScreen.addTaskTextField.delegate = self
+        mainScreen.addTaskTextField.returnKeyType = .done
+        
         //MARK: patching table view delegate and data source...
         mainScreen.tableViewToDo.delegate = self
         mainScreen.tableViewToDo.dataSource = self
@@ -91,11 +102,19 @@ class ViewController: UIViewController {
         self.mainScreen.rightArrowButton.addTarget(self, action: #selector(self.rightArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.addTaskButton.addTarget(self, action: #selector(self.addTaskTapped(_:)), for: .touchUpInside)
         self.frameView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
-
+        
         // Keyboard stuff.
         let center: NotificationCenter = NotificationCenter.default
         center.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         center.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        // Cause the text field to resign its first responder status, effectively dismissing the keyboard
+        mainScreen.addTaskTextField.resignFirstResponder()
     }
     
     
@@ -109,25 +128,25 @@ class ViewController: UIViewController {
     }
     
     func fetchLists(fetchUser:User){
-            let dispatchGroup = DispatchGroup()
-            for day in daysOfWeek {
-                dispatchGroup.enter()
-                fetchTasks(fetchUser, day) { (fetchedTasks) in
-                    self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchedTasks)
-                    dispatchGroup.leave()
-                }
-            }
-            dispatchGroup.notify(queue: .main) {
-                // This code will be executed after all tasks are fetched
-                let date = Date()
-                let calendar = Calendar.current
-                let dayOfWeek = calendar.component(.weekday, from: date) - 1
-                let dateFormatter = DateFormatter()
-                let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
-                self.selectedList = self.listMap[dayOfWeekString]
-                self.mainScreen.tableViewToDo.reloadData()
+        let dispatchGroup = DispatchGroup()
+        for day in daysOfWeek {
+            dispatchGroup.enter()
+            fetchTasks(fetchUser, day) { (fetchedTasks) in
+                self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchedTasks)
+                dispatchGroup.leave()
             }
         }
+        dispatchGroup.notify(queue: .main) {
+            // This code will be executed after all tasks are fetched
+            let date = Date()
+            let calendar = Calendar.current
+            let dayOfWeek = calendar.component(.weekday, from: date) - 1
+            let dateFormatter = DateFormatter()
+            let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
+            self.selectedList = self.listMap[dayOfWeekString]
+            self.mainScreen.tableViewToDo.reloadData()
+        }
+    }
     
     func fetchTasks(_ fetchUser:User, _ day:String, completion: @escaping ([Task]) -> Void) {
         var fetchedTasks = [Task]()
@@ -152,7 +171,7 @@ class ViewController: UIViewController {
     @objc func leftArrowButtonTapped() {
         //FIXME: make days shift left and the correct list is being chosen and update the title
     }
-
+    
     @objc func rightArrowButtonTapped() {
         //FIXME: make days shift right and the correct list is being chosen and update the title
     }
@@ -160,8 +179,8 @@ class ViewController: UIViewController {
     @objc func addTaskTapped(_ sender: UIButton) {
         // Retrieve the task name and day from the appropriate UI elements
         guard let taskName = mainScreen.addTaskTextField.text,
-                let day = selectedList?.id,
-                let userId = currentUser?.id else {
+              let day = selectedList?.id,
+              let userId = currentUser?.id else {
             // Handle the case where the required values are not available
             return
         }
@@ -183,7 +202,7 @@ class ViewController: UIViewController {
                 print("Error adding document: \(e)")
             } else {
                 print("Document added successfully")
-
+                
                 // Refresh the lists
                 guard let user = self.currentUser else {
                     print("Current user is not set")
@@ -193,24 +212,36 @@ class ViewController: UIViewController {
                 self.fetchLists(fetchUser: user)
             }
         }
-        
+        mainScreen.addTaskTextField.text = ""
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // This will dismiss the keyboard
+        
+        if textField == mainScreen.addTaskTextField {
+            // Call your function to add a task
+            self.addTaskTapped(mainScreen.addTaskButton)
+        }
+        
+        return true
+    }
+    
     
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-                return
-            }
-            
+            return
+        }
+        
         let keyboardHeight = keyboardFrame.size.height
         
         // Adjust the frame of your content view to push it up
         mainScreen.frame.origin.y = -keyboardHeight
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         // Reset the frame of your content view when the keyboard is hidden
         mainScreen.frame.origin.y = 0
-
+        
     }
     
 }
