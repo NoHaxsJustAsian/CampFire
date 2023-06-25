@@ -8,6 +8,7 @@
 import UIKit
 
 class SettingsView: UIView {
+    var defaults = UserDefaults.standard
     
     var labelElement: UILabel!
     var stackView: UIStackView!
@@ -41,6 +42,22 @@ class SettingsView: UIView {
         
         notificationTime = UIDatePicker()
         notificationTime.datePickerMode = .time
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        if (defaults.object(forKey: "notificationHour") != nil) {
+            dateComponents.hour = defaults.object(forKey: "notificationHour") as! Int?
+        }
+        else {
+            dateComponents.hour = 9
+        }
+        if (defaults.object(forKey: "notificationMinute") != nil) {
+            dateComponents.minute = defaults.object(forKey: "notificationMinute") as! Int?
+        }
+        else {
+            dateComponents.minute = 0
+        }
+        
+        notificationTime.date = calendar.date(from: dateComponents) ?? Date()
         notificationTime.translatesAutoresizingMaskIntoConstraints = false
         
         stackView = UIStackView(arrangedSubviews: [notificationSwitch, labelElement, notificationTime])
