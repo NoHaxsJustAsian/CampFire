@@ -118,8 +118,7 @@ class ViewController: UIViewController {
             } else {
                 for document in querySnapshot!.documents {
                     do {
-                        let data = try JSONSerialization.data(withJSONObject: document, options: [])
-                        let task = try JSONDecoder().decode(Task.self, from: data)
+                        let task = try document.data(as: Task.self)
                         print(task)
                         fetchedTasks.append(task)
                     } catch {

@@ -16,17 +16,11 @@ struct User: Codable, Identifiable {
 }
 
 struct List: Codable, Identifiable {
-    @DocumentID var id: String?
+    var id: String
     var name: String
     var tasks: [Task]
-
-    init() {
-        self.id = nil
-        self.name = ""
-        self.tasks = []
-    }
     
-    init(id: String?, name: String, tasks: [Task]) {
+    init(id: String, name: String, tasks: [Task]) {
         self.id = id
         self.name = name
         self.tasks = tasks
