@@ -21,6 +21,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            
+            let alert = UIAlertController(title: "Delete Task", message: "Are you sure you want to delete this task?", preferredStyle: .alert)
+                      
+                    alert.addAction(UIAlertAction(title: "NO", style: UIAlertAction.Style.default, handler: { _ in
+                        //Cancel Action
+                    }))
+                    alert.addAction(UIAlertAction(title: "Yes",
+                                                  style: UIAlertAction.Style.default,
+                                                  handler: {(_: UIAlertAction!) in
+                        //delete contact function
+  
+                    }))
+                     
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: false, completion: nil)
+                    }
             // Delete the row from the data source
             // ...
             
