@@ -4,7 +4,6 @@ class ToDoTableViewCell: UITableViewCell {
     
     var stackCell: UIStackView!
     var labelText: UITextField!
-    var toggleButton: UIButton!
     var wrapperCellView: UIView!
 
     
@@ -39,13 +38,9 @@ class ToDoTableViewCell: UITableViewCell {
         labelText.font = UIFont.boldSystemFont(ofSize: 20)
         labelText.translatesAutoresizingMaskIntoConstraints = false
         
-        toggleButton = UIButton()
-        toggleButton.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
-        
-        stackCell = UIStackView(arrangedSubviews: [toggleButton, labelText])
-        stackCell.axis = .horizontal
-        stackCell.alignment = .center
-        stackCell.spacing = 10
+        stackCell = UIStackView(arrangedSubviews: [labelText])
+        stackCell.axis = .vertical
+        stackCell.alignment = .leading
         stackCell.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(stackCell)
     }
@@ -60,6 +55,10 @@ class ToDoTableViewCell: UITableViewCell {
             wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            stackCell.topAnchor.constraint(equalTo: wrapperCellView.topAnchor),
+            stackCell.bottomAnchor.constraint(equalTo: wrapperCellView.bottomAnchor),
+            stackCell.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 10),
+            stackCell.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor),
             labelText.heightAnchor.constraint(equalTo: stackCell.heightAnchor),
             labelText.widthAnchor.constraint(equalTo: stackCell.widthAnchor, multiplier: 0.8),
             wrapperCellView.heightAnchor.constraint(equalToConstant: 50)
