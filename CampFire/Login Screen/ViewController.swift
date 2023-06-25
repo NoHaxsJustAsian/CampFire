@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.mainScreen.leftArrowButton.addTarget(self, action: #selector(self.leftArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.rightArrowButton.addTarget(self, action: #selector(self.rightArrowButtonTapped), for: .touchUpInside)
-        self.mainScreen.addTaskButton.addTarget(self, action: #selector(self.addTaskTapped), for: .touchUpInside)
+        self.mainScreen.addTaskButton.addTarget(self, action: #selector(self.addTaskTapped(_:)), for: .touchUpInside)
         self.frameView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
 
         // Keyboard stuff.
@@ -156,46 +156,43 @@ class ViewController: UIViewController {
         //FIXME: make days shift right and the correct list is being chosen and update the title
     }
     
-    @objc func addTaskTapped(){
-        let addTaskAlert = UIAlertController(
-            title: "Add Task",
-            message: "Enter Your Task Here!",
-            preferredStyle: .alert)
-        
-        //MARK: setting up email textField in the alert...
-        addTaskAlert.addTextField{ textField in
-            textField.placeholder = "Task Name"
-            textField.contentMode = .center
-            textField.keyboardType = .emailAddress
+    @objc func addTaskTapped(_ sender: UIButton) {
+        // Retrieve the task name and day from the appropriate UI elements
+        guard let taskName = mainScreen.addTaskTextField.text,
+                let day = selectedList?.id,
+                let userId = currentUser?.id else {
+            // Handle the case where the required values are not available
+            return
         }
         
-        //MARK: Sign In Action...
-        let addAction = UIAlertAction(title: "Add", style: .default, handler: {(_) in
-            if let task = addTaskAlert.textFields![0].text{
-                //MARK: sign-in logic for Firebase adding task...
+        // Create the task object
+        var task = Task()
+        if !taskName.isEmpty {
+            task.name = taskName
+        }
+        
+        let taskData: [String: Any] = [
+            "finished": task.finished,
+            "name": task.name
+        ]
+        
+        // Add the task data to Firestore
+        self.database.collection("users").document(userId).collection("lists").document(day).collection("tasks").addDocument(data: taskData) { error in
+            if let e = error {
+                print("Error adding document: \(e)")
+            } else {
+                print("Document added successfully")
+
+                // Refresh the lists
+                guard let user = self.currentUser else {
+                    print("Current user is not set")
+                    return
+                }
                 
+                self.fetchLists(fetchUser: user)
             }
-        })
+        }
         
-//        //MARK: Register Action...
-//        let registerAction = UIAlertAction(title: "Register", style: .default, handler: {(_) in
-//            //MARK: logic to open the register screen...
-//            let registerViewController = RegisterViewController()
-//            self.navigationController?.pushViewController(registerViewController, animated: true)
-//        })
-        
-        
-        //MARK: action buttons...
-        addTaskAlert.addAction(addAction)
-        //addTaskAlert.addAction(registerAction)
-        
-        self.present(addTaskAlert, animated: true, completion: {() in
-            //MARK: hide the alerton tap outside...
-            addTaskAlert.view.superview?.isUserInteractionEnabled = true
-            addTaskAlert.view.superview?.addGestureRecognizer(
-                UITapGestureRecognizer(target: self, action: #selector(self.onTapOutsideAlert))
-            )
-        })
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
