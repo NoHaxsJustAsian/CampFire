@@ -46,6 +46,7 @@ class ViewController: UIViewController {
                         do {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
+                            self.fetchLists(fetchUser: user)
                             self.mainScreen.labelText.text = "Welcome \(user.username)!"
                             self.database.collection("users").getDocuments { (document, error) in
                                 if let error = error {
@@ -105,7 +106,7 @@ class ViewController: UIViewController {
     
     func fetchLists(fetchUser:User){
         for day in daysOfWeek {
-            listMap[day] = List(id:day,name: day.capitalized,tasks:fetchTasks(fetchUser, day))
+            self.listMap[day] = List(id:day,name: day.capitalized,tasks:fetchTasks(fetchUser, day))
         }
     }
     
@@ -119,6 +120,7 @@ class ViewController: UIViewController {
                     do {
                         let data = try JSONSerialization.data(withJSONObject: document, options: [])
                         let task = try JSONDecoder().decode(Task.self, from: data)
+                        print(task)
                         fetchedTasks.append(task)
                     } catch {
                         print("Error decoding user data: \(error)")
@@ -128,6 +130,7 @@ class ViewController: UIViewController {
             }
         }
         fetchedTasks.sort { $1.finished && !$0.finished }
+        print(fetchedTasks)
         return fetchedTasks
     }
     

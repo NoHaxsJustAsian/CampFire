@@ -3,10 +3,8 @@ import UIKit
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if selectedList != nil {
-            return selectedList.tasks.count 
-        }
         return 0
+        //return selectedList.tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
