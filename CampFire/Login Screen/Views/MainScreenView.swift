@@ -6,6 +6,7 @@ class MainScreenView: UIView {
     var leftArrowButton: UIButton!
     var rightArrowButton: UIButton!
     var addTaskButton: UIButton!
+    var addTaskTextField: UITextField!
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
@@ -14,6 +15,7 @@ class MainScreenView: UIView {
         setupLeftArrowButton()
         setupRightArrowButton()
         setupAddTaskButton()
+        setupAddTaskTextField()
         initConstraints()
     }
     
@@ -56,6 +58,15 @@ class MainScreenView: UIView {
         self.addSubview(addTaskButton)
     }
     
+    func setupAddTaskTextField(){
+        addTaskTextField = UITextField()
+        addTaskTextField.placeholder = "Type Your Task Here"
+        addTaskTextField.keyboardType = .default
+        addTaskTextField.borderStyle = .roundedRect
+        addTaskTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(addTaskTextField)
+    }
+    
     
     
     //MARK: setting up constraints...
@@ -70,8 +81,12 @@ class MainScreenView: UIView {
             tableViewToDo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewToDo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
+            addTaskTextField.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            addTaskTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            addTaskTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -112),
+            
             addTaskButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            addTaskButton.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            addTaskButton.leadingAnchor.constraint(equalTo: addTaskTextField.trailingAnchor, constant: 16),
         ])
     }
     
