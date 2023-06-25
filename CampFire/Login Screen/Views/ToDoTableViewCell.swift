@@ -2,20 +2,23 @@ import UIKit
 
 class ToDoTableViewCell: UITableViewCell {
     
+    var stackCell: UIStackView!
+    var labelText: UITextField!
+    var toggleButton: UIButton!
     var wrapperCellView: UIView!
-    var labelText: UILabel!
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupWrapperCellView()
-        setupLabelText()
+        setupCell()
         initConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     func setupWrapperCellView(){
         wrapperCellView = UITableViewCell()
@@ -31,12 +34,25 @@ class ToDoTableViewCell: UITableViewCell {
         self.addSubview(wrapperCellView)
     }
     
-    func setupLabelText(){
-        labelText = UILabel()
+    func setupCell(){
+        labelText = UITextField()
         labelText.font = UIFont.boldSystemFont(ofSize: 20)
-        labelText.translatesAutoresizingMaskIntoConstraints = true
-        wrapperCellView.addSubview(labelText)
+        labelText.translatesAutoresizingMaskIntoConstraints = false
+        
+        toggleButton = UIButton()
+        toggleButton.setBackgroundImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        
+        stackCell = UIStackView(arrangedSubviews: [toggleButton, labelText])
+        stackCell.axis = .horizontal
+        stackCell.alignment = .center
+        stackCell.spacing = 10
+        stackCell.translatesAutoresizingMaskIntoConstraints = false
+        wrapperCellView.addSubview(stackCell)
     }
+    
+    
+
+    
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -44,13 +60,9 @@ class ToDoTableViewCell: UITableViewCell {
             wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            
-            labelText.topAnchor.constraint(equalTo: wrapperCellView.topAnchor, constant: 8),
-            labelText.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 16),
-            labelText.heightAnchor.constraint(equalToConstant: 20),
-            labelText.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor),
-            
-            wrapperCellView.heightAnchor.constraint(equalToConstant: 30)
+            labelText.heightAnchor.constraint(equalTo: stackCell.heightAnchor),
+            labelText.widthAnchor.constraint(equalTo: stackCell.widthAnchor, multiplier: 0.8),
+            wrapperCellView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 
