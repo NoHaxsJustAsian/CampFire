@@ -4,12 +4,14 @@ class ToDoTableViewCell: UITableViewCell {
     
     var wrapperCellView: UIView!
     var labelText: UILabel!
+    var completeButton: UIButton!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupWrapperCellView()
         setupLabelText()
+        setupCompleteButton()
         initConstraints()
     }
     
@@ -36,6 +38,11 @@ class ToDoTableViewCell: UITableViewCell {
         labelText.font = UIFont.boldSystemFont(ofSize: 20)
         labelText.translatesAutoresizingMaskIntoConstraints = true
         wrapperCellView.addSubview(labelText)
+    }
+    
+    //FIXME: make this a toggle button
+    func setupCompleteButton(){
+        completeButton = UIButton()
     }
     
     func initConstraints(){

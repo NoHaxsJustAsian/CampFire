@@ -8,12 +8,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath) as! ToDoTableViewCell
+<<<<<<< Updated upstream
         if let task = selectedList?.tasks[indexPath.row] {
             cell.labelText.text = task.name
             let _switch = UISwitch() //FIXME: may need to move UISwitch to the TODOCELL.
             _switch.isOn = task.finished
             cell.accessoryView = _switch //FIXME: add call to check the status of this switch and update if necessary.
         }
+=======
+        cell.labelText.text = selectedList.tasks[indexPath.row].name
+>>>>>>> Stashed changes
         return cell
     }    
     
