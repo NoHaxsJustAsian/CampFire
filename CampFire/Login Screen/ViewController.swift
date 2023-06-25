@@ -17,6 +17,10 @@ class ViewController: UIViewController {
     
     let childProgressView = ProgressSpinnerViewController()
     
+    var frameView: UIView!
+    
+    
+    
     override func loadView() {
         view = mainScreen
     }
@@ -86,6 +90,12 @@ class ViewController: UIViewController {
         self.mainScreen.leftArrowButton.addTarget(self, action: #selector(self.leftArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.rightArrowButton.addTarget(self, action: #selector(self.rightArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.addTaskButton.addTarget(self, action: #selector(self.addTaskTapped), for: .touchUpInside)
+        self.frameView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+
+        // Keyboard stuff.
+        let center: NotificationCenter = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -187,5 +197,34 @@ class ViewController: UIViewController {
             )
         })
     }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let info:NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+
+        let keyboardHeight: CGFloat = keyboardSize.height
+
+        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
+
+
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut, animations: {
+            self.frameView.frame = CGRect(x: 0, y: (self.frameView.frame.origin.y - keyboardHeight), width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let info: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+
+        let keyboardHeight: CGFloat = keyboardSize.height
+
+        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
+
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: .curveEaseInOut, animations: {
+            self.frameView.frame = CGRect(x: 0, y: (self.frameView.frame.origin.y + keyboardHeight), width: self.view.bounds.width, height: self.view.bounds.height)
+        }, completion: nil)
+
+    }
+    
     
 }
