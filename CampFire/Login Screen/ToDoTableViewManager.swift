@@ -23,8 +23,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             
             let alert = UIAlertController(title: "Delete Task", message: "Are you sure you want to delete this task?", preferredStyle: .alert)
-                      
-                    alert.addAction(UIAlertAction(title: "NO", style: UIAlertAction.Style.default, handler: { _ in
+                      //FIXME: add in settings to disable this confirmation
+                    alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: { _ in
                         //Cancel Action
                     }))
                     alert.addAction(UIAlertAction(title: "Yes",

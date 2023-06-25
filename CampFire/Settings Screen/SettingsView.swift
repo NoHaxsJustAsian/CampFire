@@ -15,10 +15,15 @@ class SettingsView: UIView {
     var notificationTime: UIDatePicker!
     var testNotificationButton: UIButton!
     
+    var stackBiometric: UIStackView!
+    var labelBiometric: UILabel!
+    var biometricSwitch: UISwitch!
+    
     override init(frame: CGRect){
         super.init(frame: frame)
         self.backgroundColor = .white
         setupNotificationSettings()
+        setupBiometricSettings()
         initConstraints()
     }
     
@@ -36,10 +41,9 @@ class SettingsView: UIView {
         
         notificationTime = UIDatePicker()
         notificationTime.datePickerMode = .time
-        self.addSubview(notificationTime)
         notificationTime.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView = UIStackView(arrangedSubviews: [notificationSwitch, labelElement,notificationTime])
+        stackView = UIStackView(arrangedSubviews: [notificationSwitch, labelElement, notificationTime])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 10
@@ -55,6 +59,22 @@ class SettingsView: UIView {
                 
     }
     
+    //FIXME: prompt user to allow access for touchID/FaceID in settings, remember setting. If false, send to login screen.
+    func setupBiometricSettings() {
+        labelBiometric = UILabel()
+        labelBiometric.text = "Biometric login"
+        
+        biometricSwitch = UISwitch()
+        biometricSwitch.isOn = false
+        
+        stackBiometric = UIStackView(arrangedSubviews: [biometricSwitch, labelBiometric])
+        stackBiometric.axis = .horizontal
+        stackBiometric.alignment = .center
+        stackBiometric.spacing = 10
+        stackBiometric.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(stackBiometric)
+    }
+    
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -65,6 +85,9 @@ class SettingsView: UIView {
                 testNotificationButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
                 testNotificationButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                 testNotificationButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+                stackBiometric.topAnchor.constraint(equalTo: testNotificationButton.bottomAnchor, constant: 20),
+                stackBiometric.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+                stackBiometric.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             ])
     }
     
