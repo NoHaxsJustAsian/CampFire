@@ -20,7 +20,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var frameView: UIView!
     
-    var currentDayOfWeek = 0
+    var currentDayOfWeek: Int = {
+        let date = Date()
+        let calendar = Calendar.current
+        return calendar.component(.weekday, from: date) - 1
+    }()
+    
     
     override func loadView() {
         view = mainScreen
@@ -126,7 +131,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.view.isHidden = false
         }
     }
-
+    
     
     
     override func viewDidLoad() {
@@ -161,6 +166,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
+        selectedList = listMap[daysOfWeek[currentDayOfWeek]]
     }
     
     @objc func dismissKeyboard() {
@@ -219,17 +227,41 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func leftArrowButtonTapped() {
-        //FIXME: make days shift left and the correct list is being chosen and update the title
-        self.currentDayOfWeek = (7 + currentDayOfWeek - 1) % 7
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
-        
-    }
     
+    func fetchTasksForSelectedDay() {
+        guard let fetchUser = self.currentUser, let selectedDay = self.selectedList?.id else {
+            print("Current user or selected day is not set")
+            return
+        }
+        
+        fetchTasks(fetchUser, selectedDay) { (fetchedTasks) in
+            self.selectedList = List(id:selectedDay, name: selectedDay.capitalized, tasks:fetchedTasks)
+            self.mainScreen.tableViewToDo.reloadData()
+        }
+    }
+
+    @objc func leftArrowButtonTapped() {
+        // update currentDayOfWeek and labelTextDayOfWeek
+        currentDayOfWeek = (7 + currentDayOfWeek - 1) % 7
+        mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
+        
+        // update selectedList according to currentDayOfWeek
+        selectedList = listMap[daysOfWeek[currentDayOfWeek]]
+        
+        // refresh the tasks for the selected day
+        fetchTasksForSelectedDay()
+    }
+
     @objc func rightArrowButtonTapped() {
-        //FIXME: make days shift right and the correct list is being chosen and update the title
-        self.currentDayOfWeek = (7 + currentDayOfWeek + 1) % 7
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
+        // update currentDayOfWeek and labelTextDayOfWeek
+        currentDayOfWeek = (7 + currentDayOfWeek + 1) % 7
+        mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
+        
+        // update selectedList according to currentDayOfWeek
+        selectedList = listMap[daysOfWeek[currentDayOfWeek]]
+        
+        // refresh the tasks for the selected day
+        fetchTasksForSelectedDay()
     }
     
     @objc func addTaskTapped(_ sender: UIButton) {

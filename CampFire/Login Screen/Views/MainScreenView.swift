@@ -46,7 +46,7 @@ class MainScreenView: UIView {
         rightArrowButton.setImage(UIImage(systemName: "chevron.right"), for: .normal) // Set the image for the left arrow button
         
         labelTextDayOfWeek = UILabel()
-        labelTextDayOfWeek.text = "bruhbruh"
+        labelTextDayOfWeek.text = ""
         labelTextDayOfWeek.font = .boldSystemFont(ofSize: 24)
         labelTextDayOfWeek.textColor = .purple
         labelTextDayOfWeek.translatesAutoresizingMaskIntoConstraints = false
