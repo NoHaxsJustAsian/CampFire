@@ -5,7 +5,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectedList?.tasks.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath) as! ToDoTableViewCell
         cell.layer.borderWidth = 1.0
@@ -20,7 +20,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
            let dayId = selectedList?.id {
             cell.labelText.text = task.name
             cell.taskSwitch.isOn = task.finished
-
+            
             // Adding text edited action closure
             cell.textEditedAction = { [weak self] newText in
                 guard let task = self?.selectedList?.tasks[indexPath.row],
@@ -30,7 +30,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // Create a reference to the task in Firestore
                 let taskRef = self?.database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
-
+                
                 // Update the "name" field in the task
                 taskRef?.updateData([
                     "name": newText ?? ""
@@ -61,7 +61,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // Create a reference to the task in Firestore
                 let taskRef = self?.database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
-
+                
                 // Update the "finished" field in the task
                 taskRef?.updateData([
                     "finished": isOn
@@ -80,11 +80,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         }
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             let alert = UIAlertController(title: "Delete Task", message: "Are you sure you want to delete this task?", preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: { _ in
                 //Cancel Action
             }))
@@ -96,7 +96,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                    let userId = self.currentUser?.id,
                    let dayId = self.selectedList?.id {
                     let taskRef = self.database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
-
+                    
                     taskRef.delete() { err in
                         if let err = err {
                             print("Error removing document: \(err)")
@@ -110,14 +110,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
             }))
-
+            
             DispatchQueue.main.async {
                 self.present(alert, animated: false, completion: nil)
             }
-
+            
             completionHandler(true)
         }
-
+        
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
@@ -138,47 +138,72 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
             popoverContentViewController.popoverPresentationController?.sourceView = view
             popoverContentViewController.popoverPresentationController?.sourceRect = view.bounds
             
-            // Set the delegate to handle dismissal of the popover
-            //popoverContentViewController.popoverPresentationController?.delegate = self
-            
             // Set the completion handler to handle the selected option
-            popoverContentViewController.completionHandler = { selectedOption in
-                print("Selected Option: \(selectedOption)")
+            popoverContentViewController.completionHandler = { [weak self] selectedDayName in
+                guard let strongSelf = self else {
+                    return
+                }
+
                 // Perform the move action using the selected day
-                
+                // Retrieve the task
+                if let task = strongSelf.selectedList?.tasks[indexPath.row],
+                   let taskId = task.id,
+                   let userId = strongSelf.currentUser?.id,
+                   let dayId = strongSelf.selectedList?.id {
+                    // Delete task from current day
+                    let taskRef = strongSelf.database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
+                    taskRef.delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Task successfully removed from current day!")
+                            // Add task to the selected day
+                            let newDayRef = strongSelf.database.collection("users").document(userId).collection("lists").document(selectedDayName.lowercased()).collection("tasks").document()
+                            newDayRef.setData([
+                                "name": task.name,
+                                "finished": task.finished
+                            ]) { err in
+                                if let err = err {
+                                    print("Error adding task to new day: \(err)")
+                                } else {
+                                    print("Task successfully added to new day!")
+                                    // Update local data and reload tableView
+                                    strongSelf.selectedList?.tasks.remove(at: indexPath.row)
+                                    tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            
-            
-            
+
             // Present the popover
             self.present(popoverContentViewController, animated: true, completion: nil)
-            
+
             completionHandler(true)
         }
-        
-        // Set the button color
-        moveAction.backgroundColor = UIColor.systemBlue
-        
+
+        // Change the color of the swipe action
+        moveAction.backgroundColor = .systemBlue
+
+        // Create a UISwipeActionsConfiguration object with your action
         let configuration = UISwipeActionsConfiguration(actions: [moveAction])
+        
+        // Return the configuration from the function
         return configuration
     }
-
-
-    
-    
 }
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    // Your view controller code...
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return daysOfWeek.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return daysOfWeek[row]
     }

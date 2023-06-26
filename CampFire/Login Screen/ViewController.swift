@@ -198,13 +198,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         dispatchGroup.notify(queue: .main) {
-            // This code will be executed after all tasks are fetched
-            let date = Date()
-            let calendar = Calendar.current
-            let dayOfWeek = calendar.component(.weekday, from: date) - 1
-            let dateFormatter = DateFormatter()
-            let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
-            self.selectedList = self.listMap[dayOfWeekString]
+            self.selectedList = self.listMap[
+                self.daysOfWeek[self.currentDayOfWeek]
+                ]
             self.mainScreen.tableViewToDo.reloadData()
         }
     }
