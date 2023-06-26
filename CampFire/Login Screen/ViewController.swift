@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.mainScreen.addTaskTextField.isHidden = true
                 // Hide the entire tableView...
                 self.mainScreen.tableViewToDo.isHidden = true
+                self.mainScreen.stackView.isHidden = true
                 // Reset tableView...
                 self.listMap = [:]
                 self.mainScreen.tableViewToDo.reloadData()
@@ -58,6 +59,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.mainScreen.addTaskTextField.isHidden = false
                 // Show the entire tableView...
                 self.mainScreen.tableViewToDo.isHidden = false
+                self.mainScreen.stackView.isHidden = false
                 
                 let userData = self.database.collection("users").document(user!.uid)
                 userData.getDocument { (document, error) in
