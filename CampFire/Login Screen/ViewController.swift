@@ -1,12 +1,13 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import LocalAuthentication
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
+    let defaults = UserDefaults.standard
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
-    
     var daysOfWeek = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
     
     var listMap = [String:List]()
@@ -32,6 +33,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if user == nil{
                 // Not signed in...
                 self.currentUser = nil
+                self.defaults.set(false, forKey: "biometricSwitch")
                 self.mainScreen.labelText.text = "Please sign in your To Dos!"
                 // Hide the addTaskButton and addTaskTextField...
                 self.mainScreen.addTaskButton.isHidden = true
@@ -44,7 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 // Sign in bar button...
                 self.setupRightBarButton(isLoggedin: false)
                 
-            }else{
+            }else {
                 // The user is signed in...
                 // Show the addTaskButton and addTaskTextField...
                 self.mainScreen.addTaskButton.isHidden = false
@@ -81,12 +83,54 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        self.view.isHidden = true
+        // Check if the device supports biometric authentication
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Allow biometrics to login"
+            
+            // Perform biometric authentication
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if success {
+                        // Authentication successful
+                        // Show the view
+                        self.view.isHidden = false
+                    } else {
+                        // Authentication failed
+                        // Hide the view and show an error message
+                        self.view.isHidden = true
+                        self.showAlert(title: "Error!", message: "Biometric check failed. Logged out.")
+                        do {
+                            try Auth.auth().signOut()
+                            // User is signed out successfully
+                            // Perform any necessary actions after signing out
+                        } catch let signOutError as NSError {
+                            // An error occurred while signing out
+                            print("Error signing out: \(signOutError.localizedDescription)")
+                        }
+                        self.view.isHidden = false
+                    }
+                }
+            }
+        } else {
+            self.view.isHidden = false
+        }
+    }
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if defaults.bool(forKey: "biometricSwitch") {
+            authenticate()
+        }
         
         title = "To Do"
-        
         mainScreen.addTaskTextField.delegate = self
         mainScreen.addTaskTextField.returnKeyType = .done
         
@@ -116,6 +160,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Cause the text field to resign its first responder status, effectively dismissing the keyboard
         mainScreen.addTaskTextField.resignFirstResponder()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
