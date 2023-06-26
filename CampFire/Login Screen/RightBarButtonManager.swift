@@ -102,7 +102,7 @@ extension ViewController{
             })
         )
         logoutAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        
+        self.defaults.set(false, forKey: "biometricSwitch")
         self.present(logoutAlert, animated: true)
     }
     
