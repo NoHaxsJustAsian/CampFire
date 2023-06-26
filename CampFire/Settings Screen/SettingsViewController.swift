@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import LocalAuthentication
 
 class SettingsViewController: UIViewController {
 
@@ -31,6 +32,33 @@ class SettingsViewController: UIViewController {
         settingsView.testNotificationButton.addTarget(self, action: #selector(sendTestNotification), for: .touchUpInside)
     }
 
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Allow biometrics to login"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                success, authenticationError in
+                if success {
+                    self.settingsView.biometricSwitch.isOn = true
+                    self.defaults.set(true, forKey: "biometricSwitch")
+                } else {
+                    self.showAlert(title: "Error!", message: "Biometric check failed. Try again.")
+                    self.settingsView.biometricSwitch.isOn = false
+                    self.defaults.set(false, forKey: "biometricSwitch")
+                }
+            }
+        } else {
+            self.showAlert(title: "Error!", message: "This device does not support biometrics")
+            self.settingsView.biometricSwitch.isOn = false
+            self.defaults.set(false, forKey: "biometricSwitch")
+        }
+        
+        
+    }
+    
     func checkForNotificationPermission(){
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { settings in
@@ -138,7 +166,7 @@ class SettingsViewController: UIViewController {
     
     @objc func biometricSwitchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
-            defaults.set(true, forKey: "biometricSwitch")
+            authenticate()
         } else {
             defaults.set(false, forKey: "biometricSwitch")
         }
