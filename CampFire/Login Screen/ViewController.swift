@@ -105,7 +105,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         // Hide the view and show an error message
                         self.view.isHidden = true
                         self.showAlert(title: "Error!", message: "Biometric check failed. Logged out.")
-                        self.onLogOutBarButtonTapped()
+                        do {
+                            try Auth.auth().signOut()
+                            // User is signed out successfully
+                            // Perform any necessary actions after signing out
+                        } catch let signOutError as NSError {
+                            // An error occurred while signing out
+                            print("Error signing out: \(signOutError.localizedDescription)")
+                        }
                         self.view.isHidden = false
                     }
                 }
@@ -119,8 +126,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "To Do"
+        if defaults.bool(forKey: "biometricSwitch") {
+            authenticate()
+        }
         
+        title = "To Do"
         mainScreen.addTaskTextField.delegate = self
         mainScreen.addTaskTextField.returnKeyType = .done
         
