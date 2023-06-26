@@ -61,6 +61,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let user = try document.data(as: User.self)
                             self.currentUser = user
                             self.fetchLists(fetchUser: user)
+                            let date = Date()
+                            let calendar = Calendar.current
+                            let dayOfWeek = calendar.component(.weekday, from: date) - 1
+                            let dateFormatter = DateFormatter()
+                            let dayOfWeekString = dateFormatter.weekdaySymbols[dayOfWeek].lowercased()
+                            self.mainScreen.labelTextDayOfWeek.text = dayOfWeekString.capitalized
                             self.mainScreen.labelText.text = "Welcome \(user.username)!"
                             self.database.collection("users").getDocuments { (document, error) in
                                 if let error = error {
@@ -216,14 +222,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @objc func leftArrowButtonTapped() {
         //FIXME: make days shift left and the correct list is being chosen and update the title
         self.currentDayOfWeek = (7 + currentDayOfWeek - 1) % 7
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek]
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
         
     }
     
     @objc func rightArrowButtonTapped() {
         //FIXME: make days shift right and the correct list is being chosen and update the title
         self.currentDayOfWeek = (7 + currentDayOfWeek + 1) % 7
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek]
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek].capitalized
     }
     
     @objc func addTaskTapped(_ sender: UIButton) {
