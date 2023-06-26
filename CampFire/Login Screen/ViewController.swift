@@ -22,8 +22,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var currentDayOfWeek = 0
     
-    
-    
     override func loadView() {
         view = mainScreen
     }
@@ -68,7 +66,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 if let error = error {
                                     print("Error getting documents: \(error)")
                                 } else {
-                                    self.navigationItem.titleView = self.mainScreen.titleView
                                 }
                             }
                         } catch {

@@ -5,21 +5,21 @@ class MainScreenView: UIView {
     var labelText: UILabel!
     var labelTextDayOfWeek: UILabel!
     var tableViewToDo: UITableView!
+    var stackView:UIStackView!
     var leftArrowButton: UIButton!
     var rightArrowButton: UIButton!
     var addTaskButton: UIButton!
     var addTaskTextField: UITextField!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
         
         setupLabelText()
         setupTableViewToDo()
-        setupLeftArrowButton()
-        setupRightArrowButton()
+        setupStack()
         setupAddTaskButton()
         setupAddTaskTextField()
-        //setupTitleViewConstraints()
         initConstraints()
     }
     
@@ -30,13 +30,6 @@ class MainScreenView: UIView {
         self.addSubview(labelText)
     }
     
-    func setupLabelDayOfWeek(){
-        labelTextDayOfWeek = UILabel()
-        labelTextDayOfWeek.font = .boldSystemFont(ofSize: 14)
-        labelTextDayOfWeek.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(labelTextDayOfWeek)
-    }
-    
     func setupTableViewToDo(){
         tableViewToDo = UITableView()
         tableViewToDo.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
@@ -44,21 +37,26 @@ class MainScreenView: UIView {
         self.addSubview(tableViewToDo)
     }
     
-    let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
-    
-    //FIXME: fix these arrows they show up when logging in, next to the To Do, which will change to the name of the day of the week. Also add the logic in the button presses.
-    func setupLeftArrowButton(){
+    func setupStack(){
         leftArrowButton = UIButton(type: .system)
         leftArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        leftArrowButton.setImage(UIImage(named: "left_arrow"), for: .normal) // Set the image for the left arrow button
-        titleView.addSubview(leftArrowButton)
-    }
-    
-    func setupRightArrowButton(){
+        leftArrowButton.setImage(UIImage(systemName: "chevron.left"), for: .normal) // Set the image for the left arrow button
         rightArrowButton = UIButton(type: .system)
         rightArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        rightArrowButton.setImage(UIImage(named: "right_arrow"), for: .normal) // Set the image for the left arrow button
-        titleView.addSubview(rightArrowButton)
+        rightArrowButton.setImage(UIImage(systemName: "chevron.right"), for: .normal) // Set the image for the left arrow button
+        
+        labelTextDayOfWeek = UILabel()
+        labelTextDayOfWeek.text = "bruhbruh"
+        labelTextDayOfWeek.font = .boldSystemFont(ofSize: 24)
+        labelTextDayOfWeek.textColor = .purple
+        labelTextDayOfWeek.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView = UIStackView(arrangedSubviews: [labelTextDayOfWeek,leftArrowButton, rightArrowButton])
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(stackView)
     }
     
     func setupAddTaskButton(){
@@ -77,30 +75,21 @@ class MainScreenView: UIView {
         self.addSubview(addTaskTextField)
     }
     
-//    func setupTitleViewConstraints(){
-//        NSLayoutConstraint.activate([
-//            leftArrowButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-//
-//            labelTextDayOfWeek.leadingAnchor.constraint(equalTo: leftArrowButton.trailingAnchor),
-//
-//            rightArrowButton.leadingAnchor.constraint(equalTo: labelTextDayOfWeek.trailingAnchor)
-//        ])
-//    }
     
     
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
-            
-//            titleView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            
             labelText.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             labelText.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             labelText.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
+            stackView.topAnchor.constraint(equalTo: labelText.bottomAnchor, constant: 4),
+            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             
-            tableViewToDo.topAnchor.constraint(equalTo: labelText.bottomAnchor, constant: 8),
+            tableViewToDo.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             tableViewToDo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
             tableViewToDo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             tableViewToDo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
