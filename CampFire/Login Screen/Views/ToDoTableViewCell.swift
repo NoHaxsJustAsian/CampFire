@@ -1,14 +1,17 @@
 import UIKit
 
-class ToDoTableViewCell: UITableViewCell {
-    
+class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
+
     var stackCell: UIStackView!
     var labelText: UITextField!
     var wrapperCellView: UIView!
-
+    var taskSwitch: UISwitch!
+    var switchAction: ((Bool)->())?
+    var textEditedAction: ((String?)->())?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         setupWrapperCellView()
         setupCell()
         initConstraints()
@@ -18,11 +21,8 @@ class ToDoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func setupWrapperCellView(){
-        wrapperCellView = UITableViewCell()
-        
-        //working with the shadows and colors...
+        wrapperCellView = UIView()
         wrapperCellView.backgroundColor = .white
         wrapperCellView.layer.cornerRadius = 6.0
         wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
@@ -30,25 +30,41 @@ class ToDoTableViewCell: UITableViewCell {
         wrapperCellView.layer.shadowRadius = 4.0
         wrapperCellView.layer.shadowOpacity = 0.4
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(wrapperCellView)
+        self.contentView.addSubview(wrapperCellView)  // changed this line
     }
     
     func setupCell(){
         labelText = UITextField()
         labelText.font = UIFont.boldSystemFont(ofSize: 20)
         labelText.translatesAutoresizingMaskIntoConstraints = false
+        labelText.isUserInteractionEnabled = true  // Set to true to make it editable
+        labelText.delegate = self
+        labelText.addTarget(self, action: #selector(self.textFieldDidEndOnExit), for: UIControl.Event.editingDidEndOnExit)
+
+        taskSwitch = UISwitch() // Create UISwitch
+        taskSwitch.addTarget(self, action: #selector(switchToggled), for: .valueChanged)
         
-        stackCell = UIStackView(arrangedSubviews: [labelText])
-        stackCell.axis = .vertical
-        stackCell.alignment = .leading
+        stackCell = UIStackView(arrangedSubviews: [labelText, taskSwitch]) // Include UISwitch in the stack
+        stackCell.axis = .horizontal
+        stackCell.alignment = .center
+        stackCell.distribution = .fillProportionally
         stackCell.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(stackCell)
     }
     
+    @objc func textFieldDidEndOnExit(_ textField: UITextField) {
+        self.textEditedAction?(textField.text)
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.textEditedAction?(textField.text)
+    }
 
-    
-    
+    @objc func switchToggled() {
+        print("Switch is toggled")
+        switchAction?(taskSwitch.isOn)
+    }
+
     func initConstraints(){
         NSLayoutConstraint.activate([
             wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10),

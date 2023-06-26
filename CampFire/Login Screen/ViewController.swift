@@ -225,7 +225,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
