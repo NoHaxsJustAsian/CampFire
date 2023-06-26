@@ -13,7 +13,7 @@ class MainScreenView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.systemBackground
         
         setupLabelText()
         setupTableViewToDo()
@@ -42,12 +42,14 @@ class MainScreenView: UIView {
         leftArrowButton = UIButton(type: .system)
         leftArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         leftArrowButton.setImage(UIImage(systemName: "chevron.left"), for: .normal) // Set the image for the left arrow button
+        leftArrowButton.tintColor = UIColor.orange
         leftArrowButton.setContentHuggingPriority(.required, for: .horizontal)
         leftArrowButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         rightArrowButton = UIButton(type: .system)
         rightArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         rightArrowButton.setImage(UIImage(systemName: "chevron.right"), for: .normal) // Set the image for the left arrow button
+        rightArrowButton.tintColor = UIColor.orange
         rightArrowButton.setContentHuggingPriority(.required, for: .horizontal)
         rightArrowButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         
@@ -76,6 +78,7 @@ class MainScreenView: UIView {
     func setupAddTaskTextField(){
         addTaskTextField = UITextField()
         addTaskTextField.placeholder = "✚ Add Task"
+        addTaskTextField.tintColor = .orange
         addTaskTextField.keyboardType = .default
         addTaskTextField.returnKeyType = UIReturnKeyType.done
         addTaskTextField.borderStyle = .roundedRect

@@ -22,7 +22,7 @@ class ReflectionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.systemBackground
     
     }
     required init?(coder: NSCoder) {

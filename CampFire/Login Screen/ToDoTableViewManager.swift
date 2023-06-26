@@ -8,9 +8,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath) as! ToDoTableViewCell
-        cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.cornerRadius = 6.0
         guard let currentUser = currentUser else {
             print("Current user is nil")
             return cell
@@ -83,15 +80,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            let alert = UIAlertController(title: "Delete Task", message: "Are you sure you want to delete this task?", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: { _ in
-                //Cancel Action
-            }))
-            alert.addAction(UIAlertAction(title: "Yes",
-                                          style: UIAlertAction.Style.default,
-                                          handler: {(_: UIAlertAction!) in
-                //delete task function
+            if (!self.defaults.bool(forKey:"deleteSwitch")) {
+                // Skip the alert
                 if let taskId = self.selectedList?.tasks[indexPath.row].id,
                    let userId = self.currentUser?.id,
                    let dayId = self.selectedList?.id {
@@ -109,10 +99,35 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                     }
                 }
-            }))
-            
-            DispatchQueue.main.async {
-                self.present(alert, animated: false, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Delete Task", message: "Are you sure you want to delete this task?", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default, handler: { _ in
+                    //Cancel Action
+                }))
+                alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { _ in
+                    if let taskId = self.selectedList?.tasks[indexPath.row].id,
+                       let userId = self.currentUser?.id,
+                       let dayId = self.selectedList?.id {
+                        let taskRef = self.database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
+                        
+                        taskRef.delete() { err in
+                            if let err = err {
+                                print("Error removing document: \(err)")
+                            } else {
+                                print("Document successfully removed!")
+                                // Remove the task from the local data
+                                self.selectedList?.tasks.remove(at: indexPath.row)
+                                // Reload the tableView
+                                tableView.reloadData()
+                            }
+                        }
+                    }
+                }))
+                
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
             
             completionHandler(true)
@@ -121,6 +136,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
+
     
     //FIXME: Test this. We also need to make this call the API call which changes it in the firebase to also delete, rather than jsut deleting it from the table.
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

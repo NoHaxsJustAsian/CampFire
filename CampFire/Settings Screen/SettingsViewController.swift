@@ -15,7 +15,8 @@ class SettingsViewController: UIViewController {
     var hour:Int?
     var minute:Int?
     var notificationSwitchOn = false
-    var biometricSwitchOn:Bool?
+    var biometricSwitchOn = false
+    var deleteSwitchOn = true
     let defaults = UserDefaults.standard
     
     override func loadView() {
@@ -31,6 +32,7 @@ class SettingsViewController: UIViewController {
         settingsView.notificationSwitch.addTarget(self, action: #selector(notificationSwitchValueChanged(_:)), for: .valueChanged)
         settingsView.testNotificationButton.addTarget(self, action: #selector(sendTestNotification), for: .touchUpInside)
         settingsView.biometricSwitch.addTarget(self, action: #selector(biometricSwitchValueChanged(_:)), for: .valueChanged)
+        settingsView.deleteSwitch.addTarget(self, action: #selector(deleteSwitchValueChanged(_:)), for: .valueChanged)
     }
 
     func authenticate() {
@@ -102,11 +104,14 @@ class SettingsViewController: UIViewController {
         }
         
         if (defaults.object(forKey: "biometricSwitch") != nil) {
-            biometricSwitchOn = defaults.object(forKey: "biometricSwitch") as? Bool
-            settingsView.biometricSwitch.isOn = defaults.object(forKey: "biometricSwitch") as! Bool
+            biometricSwitchOn = defaults.bool(forKey: "biometricSwitch")
+            settingsView.biometricSwitch.isOn = defaults.bool(forKey: "biometricSwitch")
         }
-
-
+        
+        if (defaults.object(forKey: "deleteSwitch") != nil) {
+            deleteSwitchOn = defaults.bool(forKey: "deleteSwitch")
+            settingsView.deleteSwitch.isOn = defaults.bool(forKey: "deleteSwitch")
+        }
     }
     
     func dispatchNotification() {
@@ -170,7 +175,18 @@ class SettingsViewController: UIViewController {
         if sender.isOn {
             authenticate()
         } else {
+            biometricSwitchOn = false
             defaults.set(false, forKey: "biometricSwitch")
+        }
+    }
+    
+    @objc func deleteSwitchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            deleteSwitchOn = true
+            defaults.set(true, forKey: "deleteSwitch")
+        } else {
+            deleteSwitchOn = false
+            defaults.set(false, forKey: "deleteSwitch")
         }
     }
     

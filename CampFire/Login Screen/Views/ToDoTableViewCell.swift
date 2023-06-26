@@ -21,17 +21,14 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupWrapperCellView(){
+    func setupWrapperCellView() {
         wrapperCellView = UIView()
-        wrapperCellView.backgroundColor = .white
+        wrapperCellView.backgroundColor = UIColor.systemBackground
         wrapperCellView.layer.cornerRadius = 6.0
-        wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
-        wrapperCellView.layer.shadowOffset = .zero
-        wrapperCellView.layer.shadowRadius = 0
-        wrapperCellView.layer.shadowOpacity = 0.4
-        wrapperCellView.layer.borderWidth = 0
+        wrapperCellView.layer.borderColor = UIColor.orange.cgColor
+        wrapperCellView.layer.borderWidth = 0.3
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(wrapperCellView)  // changed this line
+        self.contentView.addSubview(wrapperCellView)
     }
     
     func setupCell(){
@@ -44,6 +41,7 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
         labelText.addTarget(self, action: #selector(self.textFieldDidEndOnExit), for: UIControl.Event.editingDidEndOnExit)
 
         taskSwitch = UISwitch() // Create UISwitch
+        taskSwitch.onTintColor = .orange
         taskSwitch.addTarget(self, action: #selector(switchToggled), for: .valueChanged)
         
         stackCell = UIStackView(arrangedSubviews: [labelText, taskSwitch]) // Include UISwitch in the stack
@@ -69,10 +67,10 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     func initConstraints(){
         NSLayoutConstraint.activate([
-            wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
-            wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
-            wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 1),
+            wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 1),
+            wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -1),
+            wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -1),
             stackCell.topAnchor.constraint(equalTo: wrapperCellView.topAnchor),
             stackCell.bottomAnchor.constraint(equalTo: wrapperCellView.bottomAnchor),
             stackCell.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 10),

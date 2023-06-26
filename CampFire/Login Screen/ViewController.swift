@@ -6,6 +6,7 @@ import LocalAuthentication
 class ViewController: UIViewController, UITextFieldDelegate {
     
     let defaults = UserDefaults.standard
+    
     let mainScreen = MainScreenView()
     var handleAuth: AuthStateDidChangeListenerHandle?
     var daysOfWeek = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
@@ -29,6 +30,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func loadView() {
         view = mainScreen
+        defaults.register(defaults: ["notificationHour": 9])
+        defaults.register(defaults: ["notificationMinute": 0])
+        defaults.register(defaults: ["notificationSwitch": false])
+        defaults.register(defaults: ["biometricSwitch": false])
+        defaults.register(defaults: ["deleteSwitch": true])
     }
     
     override func viewWillAppear(_ animated: Bool) {

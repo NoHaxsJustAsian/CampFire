@@ -17,7 +17,8 @@ extension ViewController{
                 target: self,
                 action: #selector(onSettingBarButtonTapped)
             )
-            
+            settingIcon.tintColor = UIColor.orange
+            barIcon.tintColor = UIColor.orange
             navigationItem.leftBarButtonItem = settingIcon
             navigationItem.rightBarButtonItems = [barIcon]
             
@@ -29,6 +30,7 @@ extension ViewController{
                 target: self,
                 action: #selector(onSignInBarButtonTapped)
             )
+            barIcon.tintColor = UIColor.orange
             navigationItem.rightBarButtonItems = [barIcon]
         }
     }

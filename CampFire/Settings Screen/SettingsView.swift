@@ -20,11 +20,16 @@ class SettingsView: UIView {
     var labelBiometric: UILabel!
     var biometricSwitch: UISwitch!
     
+    var stackDelete: UIStackView!
+    var deleteLabel: UILabel!
+    var deleteSwitch: UISwitch!
+    
     override init(frame: CGRect){
         super.init(frame: frame)
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.systemBackground
         setupNotificationSettings()
         setupBiometricSettings()
+        setupDeleteSettings()
         initConstraints()
     }
     
@@ -35,6 +40,7 @@ class SettingsView: UIView {
     //Notification on or off, be sure to prompt user the first time they press it, or if not allowed in settings
     func setupNotificationSettings() {
         notificationSwitch = UISwitch()
+        notificationSwitch.onTintColor = .orange
         notificationSwitch.isOn = false
         
         labelElement = UILabel()
@@ -68,6 +74,7 @@ class SettingsView: UIView {
         self.addSubview(stackView)
         
         testNotificationButton = UIButton(type: .system)
+        testNotificationButton.tintColor = .orange
         testNotificationButton.configuration = .filled()
         testNotificationButton.setTitle("Test Notification", for: .normal)
 
@@ -82,6 +89,7 @@ class SettingsView: UIView {
         labelBiometric.text = "Biometric login"
         
         biometricSwitch = UISwitch()
+        biometricSwitch.onTintColor = .orange
         biometricSwitch.isOn = false
         
         stackBiometric = UIStackView(arrangedSubviews: [biometricSwitch, labelBiometric])
@@ -92,6 +100,21 @@ class SettingsView: UIView {
         self.addSubview(stackBiometric)
     }
     
+    func setupDeleteSettings() {
+        deleteLabel = UILabel()
+        deleteLabel.text = "Delete note confirmation"
+        
+        deleteSwitch = UISwitch()
+        deleteSwitch.onTintColor = .orange
+        deleteSwitch.isOn = true
+        
+        stackDelete = UIStackView(arrangedSubviews: [deleteSwitch, deleteLabel])
+        stackDelete.axis = .horizontal
+        stackDelete.alignment = .center
+        stackDelete.spacing = 10
+        stackDelete.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(stackDelete)
+    }
     
     func initConstraints(){
         NSLayoutConstraint.activate([
@@ -105,6 +128,9 @@ class SettingsView: UIView {
                 stackBiometric.topAnchor.constraint(equalTo: testNotificationButton.bottomAnchor, constant: 20),
                 stackBiometric.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
                 stackBiometric.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+                stackDelete.topAnchor.constraint(equalTo: stackBiometric.bottomAnchor, constant: 20),
+                stackDelete.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+                stackDelete.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             ])
     }
     
