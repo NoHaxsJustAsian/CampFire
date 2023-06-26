@@ -215,12 +215,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @objc func leftArrowButtonTapped() {
         //FIXME: make days shift left and the correct list is being chosen and update the title
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek - 1]
+        self.currentDayOfWeek = (7 + currentDayOfWeek - 1) % 7
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek]
+        
     }
     
     @objc func rightArrowButtonTapped() {
         //FIXME: make days shift right and the correct list is being chosen and update the title
-        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek + 1]
+        self.currentDayOfWeek = (7 + currentDayOfWeek + 1) % 7
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek]
     }
     
     @objc func addTaskTapped(_ sender: UIButton) {
