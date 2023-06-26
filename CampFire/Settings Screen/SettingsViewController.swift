@@ -30,6 +30,7 @@ class SettingsViewController: UIViewController {
         settingsView.notificationTime.addTarget(self, action: #selector(notificationTimeValueChanged(_:)), for: .valueChanged)
         settingsView.notificationSwitch.addTarget(self, action: #selector(notificationSwitchValueChanged(_:)), for: .valueChanged)
         settingsView.testNotificationButton.addTarget(self, action: #selector(sendTestNotification), for: .touchUpInside)
+        settingsView.biometricSwitch.addTarget(self, action: #selector(biometricSwitchValueChanged(_:)), for: .valueChanged)
     }
 
     func authenticate() {
@@ -39,15 +40,18 @@ class SettingsViewController: UIViewController {
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "Allow biometrics to login"
             
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
-                success, authenticationError in
-                if success {
-                    self.settingsView.biometricSwitch.isOn = true
-                    self.defaults.set(true, forKey: "biometricSwitch")
-                } else {
-                    self.showAlert(title: "Error!", message: "Biometric check failed. Try again.")
-                    self.settingsView.biometricSwitch.isOn = false
-                    self.defaults.set(false, forKey: "biometricSwitch")
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self.settingsView.biometricSwitch.isOn = true
+                        self.defaults.set(true, forKey: "biometricSwitch")
+                    } else {
+                        self.showAlert(title: "Error!", message: "Biometric check failed. Try again.")
+                        self.settingsView.biometricSwitch.isOn = false
+                        self.defaults.set(false, forKey: "biometricSwitch")
+                    }
                 }
             }
         } else {
@@ -55,8 +59,6 @@ class SettingsViewController: UIViewController {
             self.settingsView.biometricSwitch.isOn = false
             self.defaults.set(false, forKey: "biometricSwitch")
         }
-        
-        
     }
     
     func checkForNotificationPermission(){
