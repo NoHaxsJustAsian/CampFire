@@ -154,15 +154,15 @@ class SettingsViewController: UIViewController {
     @objc func notificationSwitchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
             // Enable notifications
+            notificationSwitchOn = true
             defaults.set(true, forKey: "notificationSwitch")
+            self.dispatchNotification()
         } else {
             let identifier = "reflectionTime"
             let notificationCenter = UNUserNotificationCenter.current()
             notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+            notificationSwitchOn = false
             defaults.set(false, forKey: "notificationSwitch")
-        }
-        if self.notificationSwitchOn! {
-            self.dispatchNotification()
         }
     }
     

@@ -27,8 +27,9 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
         wrapperCellView.layer.cornerRadius = 6.0
         wrapperCellView.layer.shadowColor = UIColor.gray.cgColor
         wrapperCellView.layer.shadowOffset = .zero
-        wrapperCellView.layer.shadowRadius = 4.0
+        wrapperCellView.layer.shadowRadius = 0
         wrapperCellView.layer.shadowOpacity = 0.4
+        wrapperCellView.layer.borderWidth = 0
         wrapperCellView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(wrapperCellView)  // changed this line
     }
