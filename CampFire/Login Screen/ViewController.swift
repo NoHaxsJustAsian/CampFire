@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var frameView: UIView!
     
+    var currentDayOfWeek = 0
+    
     
     
     override func loadView() {
@@ -145,6 +147,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.mainScreen.leftArrowButton.addTarget(self, action: #selector(self.leftArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.rightArrowButton.addTarget(self, action: #selector(self.rightArrowButtonTapped), for: .touchUpInside)
         self.mainScreen.addTaskButton.addTarget(self, action: #selector(self.addTaskTapped(_:)), for: .touchUpInside)
+        self.mainScreen.rightArrowButton.addTarget(self, action: #selector(rightArrowButtonTapped), for: .touchUpInside)
+        self.mainScreen.leftArrowButton.addTarget(self, action: #selector(leftArrowButtonTapped), for: .touchUpInside)
         self.frameView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         
         // Keyboard stuff.
@@ -214,10 +218,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @objc func leftArrowButtonTapped() {
         //FIXME: make days shift left and the correct list is being chosen and update the title
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek - 1]
     }
     
     @objc func rightArrowButtonTapped() {
         //FIXME: make days shift right and the correct list is being chosen and update the title
+        self.mainScreen.labelTextDayOfWeek.text = daysOfWeek[currentDayOfWeek + 1]
     }
     
     @objc func addTaskTapped(_ sender: UIButton) {
@@ -286,5 +292,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         mainScreen.frame.origin.y = 0
         
     }
+    
     
 }

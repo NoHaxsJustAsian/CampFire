@@ -1,7 +1,9 @@
 import UIKit
 
 class MainScreenView: UIView {
+    
     var labelText: UILabel!
+    var labelTextDayOfWeek: UILabel!
     var tableViewToDo: UITableView!
     var leftArrowButton: UIButton!
     var rightArrowButton: UIButton!
@@ -10,12 +12,14 @@ class MainScreenView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
+        
         setupLabelText()
         setupTableViewToDo()
         setupLeftArrowButton()
         setupRightArrowButton()
         setupAddTaskButton()
         setupAddTaskTextField()
+        //setupTitleViewConstraints()
         initConstraints()
     }
     
@@ -26,6 +30,13 @@ class MainScreenView: UIView {
         self.addSubview(labelText)
     }
     
+    func setupLabelDayOfWeek(){
+        labelTextDayOfWeek = UILabel()
+        labelTextDayOfWeek.font = .boldSystemFont(ofSize: 14)
+        labelTextDayOfWeek.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(labelTextDayOfWeek)
+    }
+    
     func setupTableViewToDo(){
         tableViewToDo = UITableView()
         tableViewToDo.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
@@ -34,7 +45,6 @@ class MainScreenView: UIView {
     }
     
     let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
-    
     
     //FIXME: fix these arrows they show up when logging in, next to the To Do, which will change to the name of the day of the week. Also add the logic in the button presses.
     func setupLeftArrowButton(){
@@ -67,14 +77,28 @@ class MainScreenView: UIView {
         self.addSubview(addTaskTextField)
     }
     
+//    func setupTitleViewConstraints(){
+//        NSLayoutConstraint.activate([
+//            leftArrowButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+//
+//            labelTextDayOfWeek.leadingAnchor.constraint(equalTo: leftArrowButton.trailingAnchor),
+//
+//            rightArrowButton.leadingAnchor.constraint(equalTo: labelTextDayOfWeek.trailingAnchor)
+//        ])
+//    }
     
     
     //MARK: setting up constraints...
     func initConstraints(){
         NSLayoutConstraint.activate([
+            
+//            titleView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            
             labelText.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             labelText.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             labelText.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            
             
             tableViewToDo.topAnchor.constraint(equalTo: labelText.bottomAnchor, constant: 8),
             tableViewToDo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
