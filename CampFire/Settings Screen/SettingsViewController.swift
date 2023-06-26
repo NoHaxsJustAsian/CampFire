@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     let settingsView = SettingsView()
     var hour:Int?
     var minute:Int?
-    var notificationSwitchOn:Bool?
+    var notificationSwitchOn = false
     var biometricSwitchOn:Bool?
     let defaults = UserDefaults.standard
     
@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
             case .notDetermined:
                 notificationCenter.requestAuthorization(options:[.alert, .badge, .sound]) { didAllow, error in
                     if didAllow {
-                        if self.notificationSwitchOn! {
+                        if self.notificationSwitchOn {
                             self.dispatchNotification()
                         }
                     }
@@ -97,8 +97,8 @@ class SettingsViewController: UIViewController {
         }
         
         if (defaults.object(forKey: "notificationSwitch") != nil) {
-            notificationSwitchOn = defaults.object(forKey: "notificationSwitch") as? Bool
-            settingsView.notificationSwitch.isOn = defaults.object(forKey: "notificationSwitch") as! Bool
+            notificationSwitchOn = defaults.bool(forKey: "notificationSwitch")
+            settingsView.notificationSwitch.isOn = defaults.bool(forKey: "notificationSwitch")
         }
         
         if (defaults.object(forKey: "biometricSwitch") != nil) {
@@ -191,7 +191,7 @@ class SettingsViewController: UIViewController {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "testNotification", content: content, trigger: trigger)
         
-        if notificationSwitchOn! {
+        if notificationSwitchOn {
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
                     print("Error sending test notification: \(error.localizedDescription)")
