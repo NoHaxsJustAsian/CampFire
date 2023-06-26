@@ -38,12 +38,18 @@ class MainScreenView: UIView {
     }
     
     func setupStack(){
+        
         leftArrowButton = UIButton(type: .system)
         leftArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         leftArrowButton.setImage(UIImage(systemName: "chevron.left"), for: .normal) // Set the image for the left arrow button
+        leftArrowButton.setContentHuggingPriority(.required, for: .horizontal)
+        leftArrowButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        
         rightArrowButton = UIButton(type: .system)
         rightArrowButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
         rightArrowButton.setImage(UIImage(systemName: "chevron.right"), for: .normal) // Set the image for the left arrow button
+        rightArrowButton.setContentHuggingPriority(.required, for: .horizontal)
+        rightArrowButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         labelTextDayOfWeek = UILabel()
         labelTextDayOfWeek.text = ""
@@ -81,25 +87,25 @@ class MainScreenView: UIView {
     func initConstraints(){
         NSLayoutConstraint.activate([
             labelText.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            labelText.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            labelText.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             labelText.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             stackView.topAnchor.constraint(equalTo: labelText.bottomAnchor, constant: 4),
-            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             
             tableViewToDo.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             tableViewToDo.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            tableViewToDo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            tableViewToDo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tableViewToDo.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            tableViewToDo.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             addTaskTextField.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            addTaskTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            addTaskTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             addTaskTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -112),
             
             addTaskButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            addTaskButton.leadingAnchor.constraint(equalTo: addTaskTextField.trailingAnchor, constant: 16),
+            addTaskButton.leadingAnchor.constraint(equalTo: addTaskTextField.trailingAnchor, constant: 20),
         ])
     }
     

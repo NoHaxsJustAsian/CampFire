@@ -68,10 +68,10 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     func initConstraints(){
         NSLayoutConstraint.activate([
-            wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10),
-            wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 5),
+            wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            wrapperCellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
+            wrapperCellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             stackCell.topAnchor.constraint(equalTo: wrapperCellView.topAnchor),
             stackCell.bottomAnchor.constraint(equalTo: wrapperCellView.bottomAnchor),
             stackCell.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor, constant: 10),
