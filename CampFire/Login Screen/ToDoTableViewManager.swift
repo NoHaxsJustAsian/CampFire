@@ -48,4 +48,107 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         return configuration
     }
     
+    //FIXME: Test this. We also need to make this call the API call which changes it in the firebase to also delete, rather than jsut deleting it from the table.
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let moveAction = UIContextualAction(style: .normal, title: "Move") { (action, view, completionHandler) in
+            // Create the view controller for the popover
+            let popoverContentViewController = PopoverContentViewController()
+            
+            // Customize the popover appearance if needed
+            popoverContentViewController.modalPresentationStyle = .popover
+            
+            // Set the size of the popover content view controller
+            popoverContentViewController.preferredContentSize = CGSize(width: 200, height: 200)
+            
+            // Set the source view and source rect for the popover presentation
+            popoverContentViewController.popoverPresentationController?.sourceView = view
+            popoverContentViewController.popoverPresentationController?.sourceRect = view.bounds
+            
+            // Set the delegate to handle dismissal of the popover
+            //popoverContentViewController.popoverPresentationController?.delegate = self
+            
+            // Set the completion handler to handle the selected option
+            popoverContentViewController.completionHandler = { selectedOption in
+                print("Selected Option: \(selectedOption)")
+                // Perform the move action using the selected day
+                
+            }
+            
+            
+            
+            // Present the popover
+            self.present(popoverContentViewController, animated: true, completion: nil)
+            
+            completionHandler(true)
+        }
+        
+        // Set the button color
+        moveAction.backgroundColor = UIColor.systemBlue
+        
+        let configuration = UISwipeActionsConfiguration(actions: [moveAction])
+        return configuration
+    }
+
+
+    
+    
+}
+
+extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    // Your view controller code...
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return daysOfWeek.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return daysOfWeek[row]
+    }
+}
+
+
+class PopoverContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    var completionHandler: ((String) -> Void)?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Set up the table view
+        let tableView = UITableView(frame: view.bounds)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "OptionCell")
+        view.addSubview(tableView)
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return daysOfWeek.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath)
+        cell.textLabel?.text = daysOfWeek[indexPath.row]
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedOption = daysOfWeek[indexPath.row]
+        
+        // Call the completion handler with the selected option
+        completionHandler?(selectedOption)
+        
+        // Dismiss the popover
+        dismiss(animated: true, completion: nil)
+    }
 }
