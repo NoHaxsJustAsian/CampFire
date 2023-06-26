@@ -65,6 +65,7 @@ class MainScreenView: UIView {
         self.addSubview(stackView)
     }
     
+    
     func setupAddTaskButton(){
         addTaskButton = UIButton(type: .system)
         addTaskButton.setTitle("Add Task", for: .normal)
@@ -74,8 +75,9 @@ class MainScreenView: UIView {
     
     func setupAddTaskTextField(){
         addTaskTextField = UITextField()
-        addTaskTextField.placeholder = "Type Your Task Here"
+        addTaskTextField.placeholder = "✚ Add Task"
         addTaskTextField.keyboardType = .default
+        addTaskTextField.returnKeyType = UIReturnKeyType.done
         addTaskTextField.borderStyle = .roundedRect
         addTaskTextField.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(addTaskTextField)

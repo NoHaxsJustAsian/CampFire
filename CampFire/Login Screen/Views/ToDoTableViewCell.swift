@@ -37,6 +37,7 @@ class ToDoTableViewCell: UITableViewCell, UITextFieldDelegate {
     func setupCell(){
         labelText = UITextField()
         labelText.font = UIFont.boldSystemFont(ofSize: 20)
+        labelText.returnKeyType = UIReturnKeyType.done
         labelText.translatesAutoresizingMaskIntoConstraints = false
         labelText.isUserInteractionEnabled = true  // Set to true to make it editable
         labelText.delegate = self
