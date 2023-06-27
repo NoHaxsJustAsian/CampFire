@@ -22,6 +22,16 @@ class SettingsViewController: UIViewController {
     override func loadView() {
         view = settingsView
         checkForNotificationPermission()
+        // Create an action for the first button
+        let open = UNNotificationAction(identifier: "open", title: "Reflect!", options: [.foreground])
+        let dismiss = UNNotificationAction(identifier: "dismiss", title: "Letting go...", options: [.destructive])
+        // Create a category with the actions
+        let catagory = UNNotificationCategory(
+            identifier: "categoryIdentifier",
+            actions: [open, dismiss],
+            intentIdentifiers: [],
+            options: .customDismissAction)
+        UNUserNotificationCenter.current().setNotificationCategories([catagory])
     }
     
     override func viewDidLoad() {
@@ -62,6 +72,24 @@ class SettingsViewController: UIViewController {
             self.defaults.set(false, forKey: "biometricSwitch")
         }
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.actionIdentifier {
+        case "open":
+            handleOpenNotification()
+        default:
+            break
+        }
+        completionHandler()
+    }
+
+    func handleOpenNotification() {
+        //need to add current day to push delegate
+        //for some reason, doesnt push to reflectionviewcontroller
+        let reflectionViewController = ReflectionViewController()
+        navigationController?.pushViewController(reflectionViewController, animated: true)
+    }
+    
     
     func checkForNotificationPermission(){
         let notificationCenter = UNUserNotificationCenter.current()
@@ -128,6 +156,7 @@ class SettingsViewController: UIViewController {
         content.title = title
         content.body = body
         content.sound = .default
+        content.categoryIdentifier = "categoryIdentifier"
         
         let calendar = Calendar.current
         var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
@@ -203,6 +232,7 @@ class SettingsViewController: UIViewController {
         content.title = "CampFire"
         content.body = "Test notification for your daily reflection!"
         content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "categoryIdentifier"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         let request = UNNotificationRequest(identifier: "testNotification", content: content, trigger: trigger)
