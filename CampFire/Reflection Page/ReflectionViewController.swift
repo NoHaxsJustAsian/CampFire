@@ -28,7 +28,7 @@ class ReflectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        //setupTableView()
     }
     
     private func setupTableView() {

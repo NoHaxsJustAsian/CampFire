@@ -203,8 +203,8 @@
 		F29BE7172A3D5C980040AF69 /* Settings Screen */ = {
 			isa = PBXGroup;
 			children = (
-				F2F15BCB2A46EEE200B30BE7 /* SettingsViewController.swift */,
 				F2F15BCD2A46EEF200B30BE7 /* SettingsView.swift */,
+				F2F15BCB2A46EEE200B30BE7 /* SettingsViewController.swift */,
 			);
 			path = "Settings Screen";
 			sourceTree = "<group>";
