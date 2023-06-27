@@ -29,7 +29,47 @@ class ReflectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //setupTableView()
+        
+        reflectionView.sundayButton.addTarget(self, action: #selector(sundayButtonPressed), for: .touchUpInside)
+        reflectionView.mondayButton.addTarget(self, action: #selector(mondayButtonPressed), for: .touchUpInside)
+        reflectionView.tuesdayButton.addTarget(self, action: #selector(tuesdayButtonPressed), for: .touchUpInside)
+        reflectionView.wednesdayButton.addTarget(self, action: #selector(wednesdayButtonPressed), for: .touchUpInside)
+        reflectionView.thursdayButton.addTarget(self, action: #selector(thursdayButtonPressed), for: .touchUpInside)
+        reflectionView.fridayButton.addTarget(self, action: #selector(fridayButtonPressed), for: .touchUpInside)
+        reflectionView.saturdayButton.addTarget(self, action: #selector(saturdayButtonPressed), for: .touchUpInside)
+        
     }
+    
+    @objc func sundayButtonPressed() {
+        
+        getNextTask()
+        
+    }
+    
+    @objc func mondayButtonPressed() {
+        
+    }
+    
+    @objc func tuesdayButtonPressed() {
+        
+    }
+    
+    @objc func wednesdayButtonPressed() {
+        
+    }
+    
+    @objc func thursdayButtonPressed() {
+        
+    }
+    
+    @objc func fridayButtonPressed() {
+        
+    }
+    
+    @objc func saturdayButtonPressed() {
+        
+    }
+    
     
     private func setupTableView() {
         let tableView = UITableView(frame: view.bounds, style: .plain)

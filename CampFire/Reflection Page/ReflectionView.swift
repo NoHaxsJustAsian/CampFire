@@ -42,10 +42,10 @@ class ReflectionView: UIView {
         taskLabel.text = "Task"
         
         motivationLabel = UILabel()
-        motivationLabel.text = "Time to reflect! Did you get everything done today?"
+        motivationLabel.text = "Did you get everything done today?"
         
         moveLabel = UILabel()
-        moveLabel.text = "Would you like to move these things?"
+        moveLabel.text = "Would you like to move this?"
         
         
         labelStack = UIStackView(arrangedSubviews: [taskLabel, motivationLabel,moveLabel])
@@ -60,37 +60,37 @@ class ReflectionView: UIView {
         sundayButton = UIButton(type: .system)
         sundayButton.tintColor = .orange
         sundayButton.configuration = .filled()
-        sundayButton.setTitle("Test Notification", for: .normal)
+        sundayButton.setTitle("Sunday", for: .normal)
         
         mondayButton = UIButton(type: .system)
         mondayButton.tintColor = .orange
         mondayButton.configuration = .filled()
-        mondayButton.setTitle("Test Notification", for: .normal)
+        mondayButton.setTitle("Monday", for: .normal)
         
         tuesdayButton = UIButton(type: .system)
         tuesdayButton.tintColor = .orange
         tuesdayButton.configuration = .filled()
-        tuesdayButton.setTitle("Test Notification", for: .normal)
+        tuesdayButton.setTitle("Tuesday", for: .normal)
         
         wednesdayButton = UIButton(type: .system)
         wednesdayButton.tintColor = .orange
         wednesdayButton.configuration = .filled()
-        wednesdayButton.setTitle("Test Notification", for: .normal)
+        wednesdayButton.setTitle("Wednesday", for: .normal)
         
         thursdayButton = UIButton(type: .system)
         thursdayButton.tintColor = .orange
         thursdayButton.configuration = .filled()
-        thursdayButton.setTitle("Test Notification", for: .normal)
+        thursdayButton.setTitle("Thursday", for: .normal)
         
         fridayButton = UIButton(type: .system)
         fridayButton.tintColor = .orange
         fridayButton.configuration = .filled()
-        fridayButton.setTitle("Test Notification", for: .normal)
+        fridayButton.setTitle("Friday", for: .normal)
         
         saturdayButton = UIButton(type: .system)
         saturdayButton.tintColor = .orange
         saturdayButton.configuration = .filled()
-        saturdayButton.setTitle("Test Notification", for: .normal)
+        saturdayButton.setTitle("Saturday", for: .normal)
         
         buttonStack = UIStackView(arrangedSubviews: [sundayButton,mondayButton,tuesdayButton,wednesdayButton,thursdayButton,fridayButton,saturdayButton])
         buttonStack.axis = .vertical
