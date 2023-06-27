@@ -119,38 +119,39 @@ class ReflectionViewController: UIViewController {
     }
     
     private func moveTask(day:String){
-            // Perform the move action using the selected day
-            // Retrieve the task
-            if let task = currentTask,
-               let taskId = task.id,
-               let userId = currentUser?.id,
-               //let dayId = selectedList?.id {
-                // Delete task from current day
-                let taskRef = database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
-                database.collection("users").document(userId).collection("lists").document(selectedDay).collection("tasks").document()
-                taskRef.delete() { err in
-                    if let err = err {
-                        print("Error removing document: \(err)")
-                    } else {
-                        print("Task successfully removed from current day!")
-                        // Add task to the selected day
-                        let newDayRef = database.collection("users").document(userId).collection("lists").document(day).collection("tasks").document()
-                        newDayRef.setData([
-                            "name": task.name,
-                            "finished": task.finished
-                        ]) { err in
-                            if let err = err {
-                                print("Error adding task to new day: \(err)")
-                            } else {
-                                print("Task successfully added to new day!")
-                                // Update local data and reload tableView
-                               // selectedList?.tasks.remove(currentTask.id)
-                                tableView.reloadData()
-                            }
-                        }
-                    }
-                }
-            }
+//            // Perform the move action using the selected day
+//            // Retrieve the task
+//            if let task = currentTask,
+//               let taskId = task.id,
+//               let userId = currentUser?.id,
+//               let dayId = currentUser?.id
+//        {
+//                // Delete task from current day
+//                let taskRef = database.collection("users").document(userId).collection("lists").document(dayId).collection("tasks").document(taskId)
+//                database.collection("users").document(userId).collection("lists").document(currentDayOfWeek).collection("tasks").document()
+//                taskRef.delete() { err in
+//                    if let err = err {
+//                        print("Error removing document: \(err)")
+//                    } else {
+//                        print("Task successfully removed from current day!")
+//                        // Add task to the selected day
+//                        let newDayRef = database.collection("users").document(userId).collection("lists").document(day).collection("tasks").document()
+//                        newDayRef.setData([
+//                            "name": task.name,
+//                            "finished": task.finished
+//                        ]) { err in
+//                            if let err = err {
+//                                print("Error adding task to new day: \(err)")
+//                            } else {
+//                                print("Task successfully added to new day!")
+//                                // Update local data and reload tableView
+//                                //currentUser?.tasks.remove(currentTask.id)
+//                                tableView.reloadData()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
     }
 
     private func getNextTask() {
