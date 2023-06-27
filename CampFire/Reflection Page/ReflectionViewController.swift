@@ -54,7 +54,7 @@ class ReflectionViewController: UIViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedDay = daysOfWeek[indexPath.row]
-        showPopover()
+        //showPopover()
     }
     
     // MARK: - Logic Functions for Tasks
@@ -113,34 +113,34 @@ class ReflectionViewController: UIViewController {
     
     // MARK: - Popover
     
-    private func showPopover() {
-        guard let selectedDay = selectedDay else {
-            return
-        }
-        
-        let popoverContentViewController = ReflectionPopoverContentViewController()
-        //popoverContentViewController.delegate = self
-        
-        popoverContentViewController.modalPresentationStyle = .popover
-        popoverContentViewController.preferredContentSize = CGSize(width: 200, height: 150)
-        
-        if let popoverPresentationController = popoverContentViewController.popoverPresentationController {
-            //popoverPresentationController.delegate = self
-            popoverPresentationController.sourceView = view
-            popoverPresentationController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
-            popoverPresentationController.permittedArrowDirections = []
-        }
-        
-        popoverContentViewController.selectedDay = selectedDay
-        
-        present(popoverContentViewController, animated: true, completion: nil)
-    }
-    
-    // MARK: - UIPopoverPresentationControllerDelegate
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
+//    private func showPopover() {
+//        guard let selectedDay = selectedDay else {
+//            return
+//        }
+//
+//        let popoverContentViewController = ReflectionPopoverContentViewController()
+//        //popoverContentViewController.delegate = self
+//
+//        popoverContentViewController.modalPresentationStyle = .popover
+//        popoverContentViewController.preferredContentSize = CGSize(width: 200, height: 150)
+//
+//        if let popoverPresentationController = popoverContentViewController.popoverPresentationController {
+//            //popoverPresentationController.delegate = self
+//            popoverPresentationController.sourceView = view
+//            popoverPresentationController.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+//            popoverPresentationController.permittedArrowDirections = []
+//        }
+//
+//        popoverContentViewController.selectedDay = selectedDay
+//
+//        present(popoverContentViewController, animated: true, completion: nil)
+//    }
+//
+//    // MARK: - UIPopoverPresentationControllerDelegate
+//
+//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+//        return .none
+//    }
 }
 
 
