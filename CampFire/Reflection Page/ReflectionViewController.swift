@@ -6,12 +6,21 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class ReflectionViewController: UIViewController {
     let reflectionView = ReflectionView()
-    let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    var selectedDay: String?
-
+    var daysOfWeek = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+    let database = Firestore.firestore()
+    var remainingTasks = [Task]()
+    var currentTask: Task?
+    var currentUser: User?
+    var currentDayOfWeek: Int = {
+        let date = Date()
+        let calendar = Calendar.current
+        return calendar.component(.weekday, from: date) - 1
+    }()
+    lazy var selectedDay = daysOfWeek[currentDayOfWeek]
     
     override func loadView() {
         view = reflectionView
@@ -47,6 +56,60 @@ class ReflectionViewController: UIViewController {
         selectedDay = daysOfWeek[indexPath.row]
         showPopover()
     }
+    
+    // MARK: - Logic Functions for Tasks
+    private func getTaskCount() -> String{
+        if self.remainingTasks.count == 0 {
+            return "All done for today!"
+        } else {
+            return "\(self.remainingTasks.count) tasks uncompleted today..."
+        }
+    }
+
+    private func getNextTask() {
+        if self.remainingTasks.count == 0 {
+            print("No tasks remaining")
+            return
+        } else {
+            self.currentTask = self.remainingTasks[0]
+        }
+    }
+    
+    private func getAllTasks() {
+        guard let fetchUser = self.currentUser else {
+            print("Current user is not set")
+            return
+        }
+
+        fetchTasks(fetchUser, selectedDay) { (fetchedTasks) in
+            self.remainingTasks = fetchedTasks
+        }
+    }
+
+    
+    private func fetchTasks(_ fetchUser:User, _ day:String, completion: @escaping ([Task]) -> Void) {
+        var fetchedTasks = [Task]()
+        self.database.collection("users").document(fetchUser.id!).collection("lists").document(day).collection("tasks").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let task = try document.data(as: Task.self)
+                        // Check if task is finished before adding it to the fetchedTasks array
+                        if task.finished == true {
+                            fetchedTasks.append(task)
+                        }
+                    } catch {
+                        print("Error decoding user data: \(error)")
+                    }
+                }
+                // Return the fetched tasks where 'finished' is 'true'
+                completion(fetchedTasks)
+            }
+        }
+    }
+
     
     // MARK: - Popover
     
