@@ -30,6 +30,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func loadView() {
         view = mainScreen
+        navigationController?.navigationBar.tintColor = UIColor.systemOrange
         defaults.register(defaults: ["notificationHour": 9])
         defaults.register(defaults: ["notificationMinute": 0])
         defaults.register(defaults: ["notificationSwitch": false])

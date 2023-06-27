@@ -8,8 +8,14 @@
 import UIKit
 
 class ReflectionViewController: UIViewController {
+    let reflectionView = ReflectionView()
     let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     var selectedDay: String?
+
+    
+    override func loadView() {
+        view = reflectionView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

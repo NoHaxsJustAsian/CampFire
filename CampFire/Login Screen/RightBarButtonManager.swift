@@ -11,6 +11,13 @@ extension ViewController{
                 target: self,
                 action: #selector(onLogOutBarButtonTapped)
             )
+            let reflectIcon = UIBarButtonItem(
+                image: UIImage(named: "campfire"),
+                style: .plain,
+                target: self,
+                action: #selector(onReflectBarButtonTapped)
+            )
+            
             let settingIcon = UIBarButtonItem(
                 image: UIImage(systemName: "gearshape"),
                 style: .plain,
@@ -19,8 +26,9 @@ extension ViewController{
             )
             settingIcon.tintColor = UIColor.orange
             barIcon.tintColor = UIColor.orange
+            reflectIcon.tintColor = UIColor.orange
             navigationItem.leftBarButtonItem = settingIcon
-            navigationItem.rightBarButtonItems = [barIcon]
+            navigationItem.rightBarButtonItems = [barIcon, reflectIcon]
             
         }else{
             //MARK: not logged in...
@@ -107,6 +115,16 @@ extension ViewController{
         self.defaults.set(false, forKey: "biometricSwitch")
         self.present(logoutAlert, animated: true)
     }
+    
+    @objc func onReflectBarButtonTapped(){
+        //get current day
+        //send current day of screen to screen
+        //push new screen
+        //delegate somethin
+        let reflectionViewController = ReflectionViewController()
+        navigationController?.pushViewController(reflectionViewController, animated: true)
+    }
+    
     
     func signInToFirebase(email: String, password: String){
         showActivityIndicator()
