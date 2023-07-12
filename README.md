@@ -1,6 +1,7 @@
 # CampFire - iOS To-Do App
 NEU iOS App Development CS4520
-<img src="CampFire/Assets.xcassets/AppIcon.appiconset/appstore.png" width="25" height="25" alt="CampFire Logo">
+
+<img src="CampFire/Assets.xcassets/AppIcon.appiconset/appstore.png" width="30" height="30" alt="CampFire Logo">
 
 CampFire is an intuitive iOS app designed to help you stay organized and manage your daily tasks effectively. With its user-friendly interface and powerful features, CampFire aims to enhance your productivity and keep you on track with your goals. This README provides an overview of CampFire, its key features, and instructions for installation and usage.
 
